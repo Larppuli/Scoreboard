@@ -1,19 +1,16 @@
 import React from 'react';
-import { Stack, Typography } from '@mui/material';
-import Paper from '@mui/material/Paper';
+import { Stack } from '@mui/material';
+import Formbox from './Formbox';
+import { v4 as uuidv4 } from 'uuid';
 
-const Form = () => {
+const Form = ({ games, player }) => {
+  const lastFiveGames = games.slice(-5).reverse();
+
   return (
-    <Stack direction="row" spacing={1} justifyContent="center">
-      <Paper elevation={1} sx={{ padding: '10px', textAlign: 'center' }}>
-        <Typography variant="p">A</Typography>
-      </Paper>
-      <Paper elevation={1} sx={{ padding: '10px', textAlign: 'center' }}>
-        <Typography variant="p">B</Typography>
-      </Paper>
-      <Paper elevation={1} sx={{ padding: '10px', textAlign: 'center' }}>
-        <Typography variant="p">C</Typography>
-      </Paper>
+    <Stack direction="row" spacing={1} justifyContent="right">
+      {lastFiveGames.map((game) => {
+        return <Formbox game={game} player={player} key={uuidv4()} />;
+      })}
     </Stack>
   );
 };
