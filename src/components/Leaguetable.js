@@ -9,7 +9,8 @@ import Paper from '@mui/material/Paper';
 import Form from './Form';
 
 const Leaguetable = ({ games }) => {
-  const players = ['Oskari', 'Janne', 'Lauri', 'Eero'];
+  const players = ['Oskari', 'Janne', 'Eero', 'Lauri'];
+
   const calculateStats = (player) => {
     const playerGames = games.filter((game) => game.participants.includes(player));
     const gamesWon = playerGames.filter((game) => game.winner === player).length;
@@ -20,11 +21,17 @@ const Leaguetable = ({ games }) => {
     return { playerGames, gamesPlayed, gamesWon, gamesLost, winPercentage };
   };
 
+  const sortedPlayers = players.sort((a, b) => {
+    const { winPercentage: winPercentageA } = calculateStats(a);
+    const { winPercentage: winPercentageB } = calculateStats(b);
+    return winPercentageB - winPercentageA;
+  });
+
   return (
     <TableContainer component={Paper}>
       <Table
         sx={{ background: '#080c0c', color: 'white' }}
-        size="small" // Makes the table more compact
+        size="small"
         aria-label="league table"
       >
         <TableHead>
@@ -33,19 +40,19 @@ const Leaguetable = ({ games }) => {
             <TableCell sx={{ color: 'white', padding: '4px' }} align="center">MP</TableCell>
             <TableCell sx={{ color: 'white', padding: '4px' }} align="center">W</TableCell>
             <TableCell sx={{ color: 'white', padding: '4px' }} align="center">L</TableCell>
-            <TableCell sx={{ color: 'white', padding: '4px', }} align="center">W%</TableCell>
+            <TableCell sx={{ color: 'white', padding: '4px' }} align="center">W%</TableCell>
             <TableCell sx={{ color: 'white', padding: '4px', paddingRight: '55px'}} align="right">FORM</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {players.map((player) => {
+          {sortedPlayers.map((player) => {
             const { playerGames, gamesPlayed, gamesWon, gamesLost, winPercentage } = calculateStats(player);
             return (
               <TableRow
                 key={player}
                 sx={{
                   '&:last-child td, &:last-child th': { border: 0 },
-                  height: '36px', // Set the row height
+                  height: '36px',
                 }}
               >
                 <TableCell sx={{ color: 'white', padding: '4px' }} component="th" scope="row">
