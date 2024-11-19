@@ -9,8 +9,7 @@ import Paper from '@mui/material/Paper';
 import Form from './Form';
 
 const Leaguetable = ({ games }) => {
-  const players = ['Janne', 'Oskari', 'Lauri', 'Eero'];
-
+  const players = ['Oskari', 'Janne', 'Lauri', 'Eero'];
   const calculateStats = (player) => {
     const playerGames = games.filter((game) => game.participants.includes(player));
     const gamesWon = playerGames.filter((game) => game.winner === player).length;
@@ -18,13 +17,13 @@ const Leaguetable = ({ games }) => {
     const gamesLost = gamesPlayed - gamesWon;
     const winPercentage = gamesPlayed > 0 ? ((gamesWon / gamesPlayed) * 100).toFixed(1) : 0;
 
-    return { gamesPlayed, gamesWon, gamesLost, winPercentage };
+    return { playerGames, gamesPlayed, gamesWon, gamesLost, winPercentage };
   };
 
   return (
     <TableContainer component={Paper}>
       <Table
-        sx={{ background: '#101c24', color: 'white' }}
+        sx={{ background: '#080c0c', color: 'white' }}
         size="small" // Makes the table more compact
         aria-label="league table"
       >
@@ -35,12 +34,12 @@ const Leaguetable = ({ games }) => {
             <TableCell sx={{ color: 'white', padding: '4px' }} align="center">W</TableCell>
             <TableCell sx={{ color: 'white', padding: '4px' }} align="center">L</TableCell>
             <TableCell sx={{ color: 'white', padding: '4px', }} align="center">W%</TableCell>
-            <TableCell sx={{ color: 'white', padding: '4px'}} align="center">FORM</TableCell>
+            <TableCell sx={{ color: 'white', padding: '4px', paddingRight: '55px'}} align="right">FORM</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {players.map((player) => {
-            const { gamesPlayed, gamesWon, gamesLost, winPercentage } = calculateStats(player);
+            const { playerGames, gamesPlayed, gamesWon, gamesLost, winPercentage } = calculateStats(player);
             return (
               <TableRow
                 key={player}
@@ -56,7 +55,7 @@ const Leaguetable = ({ games }) => {
                 <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesWon}</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesLost}</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{winPercentage}%</TableCell>
-                <TableCell sx={{ padding: '4px' }} ><Form /></TableCell>
+                <TableCell sx={{ padding: '4px' }} ><Form games={playerGames} player={player}/></TableCell>
               </TableRow>
             );
           })}
