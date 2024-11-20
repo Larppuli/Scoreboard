@@ -28,21 +28,19 @@ const Leaguetable = ({ games }) => {
   });
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} elevation={2}>
       <Table
-        sx={{ background: '#080c0c', color: 'white' }}
-        size="small"
-        aria-label="league table"
+        sx={{ background: '#080c0c', border: '3px solid #080c0c' }}
       >
         <TableHead>
-          <TableRow>
-            <TableCell sx={{ color: 'white', padding: '4px' }}>Player</TableCell>
-            <TableCell sx={{ color: 'white', padding: '4px' }} align="center">MP</TableCell>
-            <TableCell sx={{ color: 'white', padding: '4px' }} align="center">W</TableCell>
-            <TableCell sx={{ color: 'white', padding: '4px' }} align="center">L</TableCell>
-            <TableCell sx={{ color: 'white', padding: '4px' }} align="center">W%</TableCell>
-            <TableCell sx={{ color: 'white', padding: '4px', paddingRight: '55px'}} align="right">FORM</TableCell>
-          </TableRow>
+            <TableRow>
+                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }}>Player</TableCell>
+                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">MP</TableCell>
+                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">W</TableCell>
+                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">L</TableCell>
+                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">W%</TableCell>
+                <TableCell sx={{ color: 'white', padding: '4px', paddingRight: '55px', fontWeight: 'bold' }} align="right">FORM</TableCell>
+            </TableRow>
         </TableHead>
         <TableBody>
           {sortedPlayers.map((player) => {
