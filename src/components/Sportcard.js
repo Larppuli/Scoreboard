@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 const Sportcard = (sportData) => {
     const [sport, games] = sportData.sportData;
     const players = ['Oskari', 'Janne', 'Eero', 'Lauri'];
-    console.log(sportData.sportData)
 
     const winPercentage = (player) => {
         const playerGames = games.filter((game) => game.participants.includes(player));
