@@ -7,6 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Form from './Form';
+import { Stack } from '@mui/material';
+import PositionBox from './Positionbox';
 
 const Leaguetable = ({ games }) => {
   const players = ['Oskari', 'Janne', 'Eero', 'Lauri'];
@@ -34,7 +36,7 @@ const Leaguetable = ({ games }) => {
       >
         <TableHead>
             <TableRow>
-                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }}>Player</TableCell>
+                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold', paddingLeft: '30px' }}>Player</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">MP</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">W</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">L</TableCell>
@@ -43,7 +45,7 @@ const Leaguetable = ({ games }) => {
             </TableRow>
         </TableHead>
         <TableBody>
-          {sortedPlayers.map((player) => {
+          {sortedPlayers.map((player, index) => {
             const { playerGames, gamesPlayed, gamesWon, gamesLost, winPercentage } = calculateStats(player);
             return (
               <TableRow
@@ -54,7 +56,10 @@ const Leaguetable = ({ games }) => {
                 }}
               >
                 <TableCell sx={{ color: 'white', padding: '4px' }} component="th" scope="row">
-                  {player}
+                <Stack direction="row" >
+                    <PositionBox position={index+1}/>
+                    {player}
+                </Stack>
                 </TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesPlayed}</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesWon}</TableCell>
