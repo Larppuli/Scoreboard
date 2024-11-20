@@ -34,7 +34,8 @@ const Formbox = ({ game, player }) => {
         alignItems: 'center',
       }}
       elevation={1}
-    >      <Typography variant="body1">{indicatorLetter}</Typography>
+    >      
+        <Typography variant="body1">{indicatorLetter}</Typography>
     </Paper>
   );
 };
