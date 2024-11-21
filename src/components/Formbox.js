@@ -6,15 +6,18 @@ const Formbox = ({ game, player }) => {
   const pickColor = () => {
     let color;
     let indicatorLetter;
-
-    if (game.winner === player) {
+  
+    if (Object.keys(game).length === 0) {
+      color = "#c8c4c4";
+      indicatorLetter = '?';
+    } else if (game.winner === player) {
       color = "#60a44c";
       indicatorLetter = 'W';
     } else {
       color = "#c02c1c";
       indicatorLetter = 'L';
     }
-
+  
     return { color, indicatorLetter };
   };
 
@@ -35,7 +38,7 @@ const Formbox = ({ game, player }) => {
       }}
       elevation={1}
     >      
-        <Typography variant="body1">{indicatorLetter}</Typography>
+    <Typography variant="body1">{indicatorLetter}</Typography>
     </Paper>
   );
 };
