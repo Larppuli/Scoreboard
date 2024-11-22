@@ -27,7 +27,7 @@ const Playercard = ({ photoId, name, games }) => {
 
         eightLatestGames.forEach((game, index) => {
             const weight = Math.max(0.1, 3 - (8-index) * 0.1);
-            const lossWeight = Math.max(0.1, 0.4 - (8-index) * 0.1);
+            const lossWeight = Math.max(0.1, 1 - (8-index) * 0.1);
 
             if (game.winner === firstName) {
                 marketValue += 3 * weight;
