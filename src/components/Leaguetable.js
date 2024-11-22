@@ -55,17 +55,17 @@ const Leaguetable = ({ games }) => {
                   height: '36px',
                 }}
               >
-                <TableCell sx={{ color: 'white', padding: '4px' }} component="th" scope="row">
-                <Stack direction="row" >
-                    <PositionBox position={index+1}/>
-                    {player}
-                </Stack>
-                </TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesPlayed}</TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesWon}</TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesLost}</TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{winPercentage}%</TableCell>
-                <TableCell sx={{ padding: '4px' }} ><Form games={playerGames} player={player}/></TableCell>
+                    <TableCell sx={{ color: 'white', padding: '4px' }} component="th" scope="row">
+                    <Stack direction="row" >
+                        <PositionBox position={index+1}/>
+                        {player}
+                    </Stack>
+                    </TableCell>
+                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesPlayed}</TableCell>
+                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesWon}</TableCell>
+                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesLost}</TableCell>
+                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{winPercentage}%</TableCell>
+                    <TableCell sx={{ padding: '4px' }} ><Form games={playerGames} player={player}/></TableCell>
               </TableRow>
             );
           })}
