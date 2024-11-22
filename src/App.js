@@ -4,7 +4,7 @@ import Leaguetable from './components/Leaguetable';
 import { Typography, Stack } from '@mui/material';
 import Sportcard from './components/Sportcard';
 import { v4 as uuidv4 } from 'uuid'
-
+import Playercard from './components/Playercard';
 const App = () => {
     const [data, setData] = useState([]);
 
@@ -51,6 +51,12 @@ const App = () => {
           </Typography>
         </Stack>
         <Leaguetable games={data} />
+        <Stack marginBottom={4} marginTop={2.5}>
+          <Playercard photoId={process.env.REACT_APP_JANNE_ID} name='Janne Peltokorpi' games={data}/>
+          <Playercard photoId={process.env.REACT_APP_EERO_ID} name='Eero Reijonen' games={data}/>
+          <Playercard photoId={process.env.REACT_APP_LAURI_ID} name='Lauri Talvitie' games={data}/>
+          <Playercard photoId={process.env.REACT_APP_OSKARI_ID} name='Oskari Valkama' games={data}/>
+        </Stack>
         {Object.entries(groupBySport()).map((sportData)=>{
           return <Sportcard sportData={sportData} key={uuidv4()}/>
         })}
