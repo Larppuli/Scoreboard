@@ -51,12 +51,10 @@ const App = () => {
           </Typography>
         </Stack>
         <Leaguetable games={data} />
-        <Stack marginBottom={4} marginTop={2.5}>
-          <Playercard photoId={process.env.REACT_APP_JANNE_ID} name='Janne Peltokorpi' games={data}/>
-          <Playercard photoId={process.env.REACT_APP_EERO_ID} name='Eero Reijonen' games={data}/>
-          <Playercard photoId={process.env.REACT_APP_LAURI_ID} name='Lauri Talvitie' games={data}/>
-          <Playercard photoId={process.env.REACT_APP_OSKARI_ID} name='Oskari Valkama' games={data}/>
-        </Stack>
+        <Playercard photoId={process.env.REACT_APP_JANNE_ID} name='Janne Peltokorpi' games={data}/>
+        <Playercard photoId={process.env.REACT_APP_EERO_ID} name='Eero Reijonen' games={data}/>
+        <Playercard photoId={process.env.REACT_APP_LAURI_ID} name='Lauri Talvitie' games={data}/>
+        <Playercard photoId={process.env.REACT_APP_OSKARI_ID} name='Oskari Valkama' games={data}/>
         {Object.entries(groupBySport()).map((sportData)=>{
           return <Sportcard sportData={sportData} key={uuidv4()}/>
         })}
