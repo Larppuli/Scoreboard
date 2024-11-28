@@ -19,20 +19,19 @@ ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip,
 const Playercard = ({ photoId, name, games }) => {
     const firstName = name.split(' ')[0];
     const playerGames = games.filter((game) => game.participants.includes(firstName));
-    const eightLatestGames = playerGames.slice(playerGames.length - 8, playerGames.length);
 
     const calculateMarketValueDevelopment = () => {
         let marketValue = 10;
         const marketValues = [];
 
-        eightLatestGames.forEach((game, index) => {
-            const weight = Math.max(0.1, 3 - (8-index) * 0.1);
-            const lossWeight = Math.max(0.1, 1 - (8-index) * 0.1);
+        playerGames.forEach((game) => {
+            const weight = game.participants.length * 0.1;
+            const lossWeight = (10 / game.participants.length * 3);
 
             if (game.winner === firstName) {
                 marketValue += 3 * weight;
             } else {
-                marketValue -= 2 * lossWeight;
+                marketValue -= lossWeight;
             }
             marketValues.push(marketValue.toFixed(1));
         });
@@ -43,7 +42,7 @@ const Playercard = ({ photoId, name, games }) => {
     const marketValueDevelopment = calculateMarketValueDevelopment();
 
     const chartData = {
-        labels: playerGames.slice(playerGames.length - 8, playerGames.length).map((_, index) => `Game ${index + 1}`),
+        labels: playerGames,
         datasets: [
             {
                 data: marketValueDevelopment,
@@ -59,6 +58,25 @@ const Playercard = ({ photoId, name, games }) => {
             legend: {
                 display: false,
             },
+            tooltip: {
+                callbacks: {
+                    title: (tooltipItems) => {
+                        const gameIndex = tooltipItems[0].dataIndex;
+                        const game = playerGames[gameIndex];
+                        return `Game ${gameIndex + 1}: ${game.date}`;
+                    },
+                    label: (tooltipItem) => {
+                        const marketValue = tooltipItem.raw;
+                        return `Market Value: €${marketValue}M`;
+                    },
+                    footer: (tooltipItems) => {
+                        const gameIndex = tooltipItems[0].dataIndex;
+                        const game = playerGames[gameIndex];
+                        return `Winner: ${game.winner}`;
+                    },
+                },
+                displayColors: false,
+            },
         },
         scales: {
             y: {
@@ -69,7 +87,8 @@ const Playercard = ({ photoId, name, games }) => {
             },
             x: {
                 display: false
-            }
+            },
+
         },
     };
 
@@ -81,6 +100,7 @@ const Playercard = ({ photoId, name, games }) => {
                     color: 'white',
                     padding: '10px',
                     marginTop: '10px',
+                    maxWidth: '1000px',
                 }}
                 elevation={2}
                 align="left"
