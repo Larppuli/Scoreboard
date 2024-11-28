@@ -50,6 +50,7 @@ const Sportcard = (sportData) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     marginTop: '10px',
+                    maxWidth: '1000px'
                 }}
                 elevation={2}
             >
