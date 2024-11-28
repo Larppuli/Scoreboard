@@ -30,13 +30,15 @@ const Leaguetable = ({ games }) => {
   });
 
   return (
-    <TableContainer component={Paper} elevation={2}>
+    <TableContainer component={Paper} elevation={2}
+      sx={{ maxWidth: '1020px' }}
+    >
       <Table
         sx={{ background: '#080c0c', border: '3px solid #080c0c' }}
       >
         <TableHead>
             <TableRow>
-                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold', paddingLeft: '30px' }}>Player</TableCell>
+                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold', paddingLeft: '28px' }}>PLAYER</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">MP</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">W</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">L</TableCell>
