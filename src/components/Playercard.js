@@ -122,8 +122,8 @@ const Playercard = ({ photoId, name, games }) => {
                                 {name}
                             </Typography>
                             <Typography variant="body2">
-                                Current Market Value: €
-                                <NumAnimation targetNumber={marketValueDevelopment[marketValueDevelopment.length - 1]} fixedNum={1}/>M
+                                Current Market Value:{' '}
+                                <NumAnimation targetNumber={marketValueDevelopment[marketValueDevelopment.length - 1]} fixedNum={1} colorChange={true}/> M€
                             </Typography>
                         </Stack>
                     </Stack>
