@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import Form from './Form';
 import { Stack } from '@mui/material';
 import PositionBox from './Positionbox';
+import NumAnimation from './NumAnimation';
 
 const Leaguetable = ({ games }) => {
   const players = ['Oskari', 'Janne', 'Eero', 'Lauri'];
@@ -63,10 +64,18 @@ const Leaguetable = ({ games }) => {
                         {player}
                     </Stack>
                     </TableCell>
-                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesPlayed}</TableCell>
-                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesWon}</TableCell>
-                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{gamesLost}</TableCell>
-                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">{winPercentage}%</TableCell>
+                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">
+                      <NumAnimation targetNumber={gamesPlayed} fixedNum={0}/>
+                    </TableCell>
+                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">
+                      <NumAnimation targetNumber={gamesWon} fixedNum={0}/>
+                    </TableCell>
+                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">
+                      <NumAnimation targetNumber={gamesLost} fixedNum={0}/>
+                    </TableCell>
+                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">
+                      <NumAnimation targetNumber={winPercentage} fixedNum={1}/>%
+                    </TableCell>
                     <TableCell sx={{ padding: '4px' }} ><Form games={playerGames} player={player}/></TableCell>
               </TableRow>
             );
