@@ -1,4 +1,5 @@
 import React from 'react';
+import NumAnimation from './NumAnimation';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -121,7 +122,8 @@ const Playercard = ({ photoId, name, games }) => {
                                 {name}
                             </Typography>
                             <Typography variant="body2">
-                                Current Market Value: €{marketValueDevelopment[marketValueDevelopment.length - 1]}M
+                                Current Market Value: €
+                                <NumAnimation targetNumber={marketValueDevelopment[marketValueDevelopment.length - 1]} fixedNum={1}/>M
                             </Typography>
                         </Stack>
                     </Stack>
