@@ -39,7 +39,7 @@ const Leaguetable = ({ games }) => {
       >
         <TableHead>
             <TableRow>
-                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold', paddingLeft: '28px' }}>PLAYER</TableCell>
+                <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold', paddingLeft: '24px' }}>PLAYER</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">MP</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">W</TableCell>
                 <TableCell sx={{ color: 'white', padding: '4px', fontWeight: 'bold' }} align="center">L</TableCell>
@@ -54,26 +54,25 @@ const Leaguetable = ({ games }) => {
               <TableRow
                 key={player}
                 sx={{
-                  '&:last-child td, &:last-child th': { border: 0 },
                   height: '36px',
                 }}
               >
-                    <TableCell sx={{ color: 'white', padding: '4px' }} component="th" scope="row">
+                    <TableCell sx={{ color: 'white', padding: '4px' }}  scope="row">
                     <Stack direction="row" >
                         <PositionBox position={index+1}/>
                         {player}
                     </Stack>
                     </TableCell>
-                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">
+                    <TableCell sx={{ color: 'white', padding: '4px', width: '10%' }} align="center">
                       <NumAnimation targetNumber={gamesPlayed} fixedNum={0}/>
                     </TableCell>
-                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">
+                    <TableCell sx={{ color: 'white', padding: '4px', width: '7%' }} align="center">
                       <NumAnimation targetNumber={gamesWon} fixedNum={0}/>
                     </TableCell>
-                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">
+                    <TableCell sx={{ color: 'white', padding: '4px', width: '7%' }} align="center">
                       <NumAnimation targetNumber={gamesLost} fixedNum={0}/>
                     </TableCell>
-                    <TableCell sx={{ color: 'white', padding: '4px' }} align="center">
+                    <TableCell sx={{ color: 'white', padding: '4px', width: '15%' }} align="center">
                       <NumAnimation targetNumber={winPercentage} fixedNum={1}/>%
                     </TableCell>
                     <TableCell sx={{ padding: '4px' }} ><Form games={playerGames} player={player}/></TableCell>
