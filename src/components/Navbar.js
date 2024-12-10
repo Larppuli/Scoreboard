@@ -10,7 +10,7 @@ const Navbar = () => {
         <AppBar
             position="fixed"
             sx={{
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                backgroundColor: 'rgba(30, 30, 30, 0.5)',
                 backdropFilter: 'blur(5px)',
                 bottom: 0,
                 top: 'auto',
@@ -19,7 +19,7 @@ const Navbar = () => {
             }}
         >
             <Toolbar>
-                <BottomNavigation showLabels sx={{ width: '100%', background: 'INHERIT' }}>
+                <BottomNavigation showLabels sx={{ width: '100%', background: 'inherit' }}>
                     <BottomNavigationAction
                         href="/"
                         icon={<EqualizerIcon sx={{color: '#ececec'}} />}
