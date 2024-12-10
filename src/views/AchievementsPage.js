@@ -10,7 +10,7 @@ const AchievementPage = () => {
                 POIKAINSCORE
                 </Typography>
             </Stack>
-            <Stack sx={{ height: '790px', alignItems: 'center', paddingTop: '60%'}}>
+            <Stack sx={{ height: '100%', alignItems: 'center', paddingTop: '60%'}}>
                 <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '55px' }} color='white' align='center'>
                     Coming <br/>soon
                 </Typography>
