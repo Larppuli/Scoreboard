@@ -72,16 +72,17 @@ const Achievementcard = ({ photoId, name, games }) => {
     const unlockedCount = achievements.filter(a => a.unlocked).length;
 
     return (
-        <Grow in={true} timeout={700}>
+        <Grow in={true} timeout={700} >
             <Paper
                 sx={{
                     background: '#080c0c',
                     color: 'white',
                     padding: '10px',
                     marginTop: '10px',
+                    width: '95%',
                     maxWidth: '1000px',
                 }}
-                elevation={2}
+                elevation={3}
                 align="left"
             >
                 <Stack spacing={2}>
@@ -90,10 +91,7 @@ const Achievementcard = ({ photoId, name, games }) => {
                             color: 'white',
                             boxShadow: 'none',
                         }}>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon sx={{ color:'white' }}/>}
-
-                        >
+                        <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color:'white' }}/>} >
                             <Stack direction="row" alignItems='center'>
                         <img
                             src={`https://drive.google.com/thumbnail?id=${photoId}`}
