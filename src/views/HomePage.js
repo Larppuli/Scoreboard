@@ -1,48 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import Papa from 'papaparse';
+import React from 'react';
 import Leaguetable from '../components/Leaguetable';
 import { Typography, Stack, Box } from '@mui/material';
 import Sportcard from '../components/Sportcard';
 import { v4 as uuidv4 } from 'uuid';
 import Playercard from '../components/Playercard';
 
-const HomePage = () => {
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-      const fetchData = async () => {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await fetch(apiUrl);
-        const csvText = await response.text();
-
-        Papa.parse(csvText, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (result) => {
-            const games = result.data.map(row => ({
-              date: row['Pelipäivä'],
-              winner: row['Voittaja'],
-              participants: row['Osallistujat'],
-              sport: row['Laji'], 
-            }));
-            setData(games);
-          },
-        });
-      };
-
-      fetchData();
-    }, []);
+const HomePage = ({ data }) => {
 
     const groupBySport = () => {
-      const grouped = {};
-      data.forEach(game => {
-        if (!grouped[game.sport]) {
-          grouped[game.sport] = [];
-        }
-        grouped[game.sport].push(game);
-      });
-      return grouped;
-    };
+        const grouped = {};
+        data.forEach(game => {
+          if (!grouped[game.sport]) {
+            grouped[game.sport] = [];
+          }
+          grouped[game.sport].push(game);
+        });
+        return grouped;
+      };
 
     return (
       <Box sx={{ paddingBottom: '80px' }} align='center'>

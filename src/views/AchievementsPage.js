@@ -1,7 +1,8 @@
 import { Stack, Typography } from '@mui/material';
 import React from 'react';
+import Achievementcard from '../components/Achievementcard';
 
-const AchievementPage = () => {
+const AchievementPage = ({ data }) => {
     return (
         <div>
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
@@ -10,10 +11,11 @@ const AchievementPage = () => {
                 POIKAINSCORE
                 </Typography>
             </Stack>
-            <Stack sx={{ height: '100%', alignItems: 'center', paddingTop: '60%'}}>
-                <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '55px' }} color='white' align='center'>
-                    Coming <br/>soon
-                </Typography>
+            <Stack paddingBottom={10}>
+                <Achievementcard  photoId={process.env.REACT_APP_OSKARI_ID} name='Oskari Valkama' games={data}/>
+                <Achievementcard  photoId={process.env.REACT_APP_JANNE_ID} name='Janne Peltokorpi' games={data}/>
+                <Achievementcard  photoId={process.env.REACT_APP_LAURI_ID} name='Lauri Talvitie' games={data}/>
+                <Achievementcard  photoId={process.env.REACT_APP_EERO_ID} name='Eero Reijonen' games={data}/>
             </Stack>
         </div>
     );
