@@ -33,13 +33,30 @@ const Achievementcard = ({ photoId, name, games }) => {
         
         games.forEach((game) => {
             if (game.participants.split(', ').includes(firstName)) {
-                const gameDate = new Date(game.date);
+                const [day, month, year] =game.date.split('.').map(Number);
+                const gameDate = new Date(year, month - 1, day);
                 const dayOfWeek = gameDate.getDay();
                 daysPlayed.add(dayOfWeek);
             }
         });
-    
+
         return daysPlayed.size === 7;
+    };
+
+    const hasPlayedAgainstEveryone = () => {
+        const players = []
+    
+        games.forEach((game) => {
+            const participants = game.participants.split(',').map(name => name.trim())
+            if (participants.length === 2) {
+                for (const participant of participants) {
+                    if (!players.includes(participant)) {
+                        players.push(participant)
+                    }
+                }
+            }
+        });
+        return players.length === 4;
     };
 
     const achievements = [
@@ -52,6 +69,7 @@ const Achievementcard = ({ photoId, name, games }) => {
         { achievement: 'Win 20 games', unlocked: gamesWon >= 20 },
         { achievement: 'Win 3 games in a row', unlocked: winStreak() >= 3 },
         { achievement: 'Win 5 games in a row', unlocked: winStreak() >= 5 },
+        { achievement: 'Play 1 vs 1 against everyone', unlocked: hasPlayedAgainstEveryone() },
         { achievement: 'Play on every day of the week', unlocked: hasPlayedEveryDay() },
     ];
 
