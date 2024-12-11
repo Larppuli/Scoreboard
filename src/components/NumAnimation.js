@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSpring, animated } from '@react-spring/web';
 
-const NumAnimation = ({ targetNumber, fixedNum, colorChange }) => {
+const NumAnimation = ({ targetNumber, fixedNum, colorChange, fontWeight }) => {
   const validTargetNumber = isNaN(targetNumber) ? 0 : parseFloat(targetNumber);
 
   const { number } = useSpring({
@@ -12,25 +12,21 @@ const NumAnimation = ({ targetNumber, fixedNum, colorChange }) => {
 
   const calculateColor = (value) => {
     if (colorChange) {
-        const adjustedValue = value - 15; // Shift all classes by 15
+        const adjustedValue = value - 15;
         if (adjustedValue <= 20) {
-            // Red (0-20)
-            const t = Math.max(adjustedValue / 20, 0); // Ensure no negative `t`
-            return `rgb(255, ${Math.round(255 * t)}, 0)`; // Red to Yellow
+            const t = Math.max(adjustedValue / 20, 0);
+            return `rgb(255, ${Math.round(255 * t)}, 0)`;
         } else if (adjustedValue <= 40) {
-            // Yellow (20-40)
             const t = (adjustedValue - 20) / 20;
-            return `rgb(${Math.round(255 - 255 * t)}, 255, 0)`; // Yellow to Green
+            return `rgb(${Math.round(255 - 255 * t)}, 255, 0)`;
         } else if (adjustedValue <= 60) {
-            // Green (40-60)
             const t = (adjustedValue - 40) / 20;
-            return `rgb(0, 255, ${Math.round(255 * t)})`; // Green to Cyan
+            return `rgb(0, 255, ${Math.round(255 * t)})`;
         } else {
-            // Cyan (60+)
-            return `rgb(0, 255, 255)`; // Stable Cyan
+            return `rgb(0, 255, 255)`;
         }
     } else {
-        return 'white'; // Default color if colorChange is false
+        return 'white';
     }
 };
 
@@ -41,7 +37,7 @@ const NumAnimation = ({ targetNumber, fixedNum, colorChange }) => {
     <animated.span
       style={{
         color: number.to((n) => calculateColor(n)),
-        fontWeight: 'bold',
+        fontWeight: fontWeight || '400'
       }}
     >
       {number.to((n) => n.toFixed(fixedNum))}
