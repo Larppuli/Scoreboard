@@ -25,12 +25,15 @@ const Achievement = ({ achievement, unlocked }) => {
                             {achievement}
                         </TableCell>
                         <TableCell sx={{ border: 'none' }}>
-                            <StarIcon
-                                sx={{
-                                    color: unlocked ? 'gold' : '#3a3a3a',
-                                    transition: 'color 0.4s ease-in-out',
-                                }}
-                            />
+                        <StarIcon
+                            sx={{
+                                color: unlocked ? 'gold' : '#3a3a3a',
+                                transition: 'color 0.2s ease-in-out',
+                                filter: unlocked
+                                ? 'drop-shadow(0 0 1.5px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 3px rgba(255, 215, 0, 0.8))' 
+                                : 'none',
+                            }}
+                        />
                         </TableCell>
                     </TableRow>
                 </TableBody>
