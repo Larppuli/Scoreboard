@@ -4,8 +4,12 @@ import Toolbar from '@mui/material/Toolbar';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import { BottomNavigationAction, BottomNavigation } from '@mui/material';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { useLocation } from 'react-router'; // Import useLocation hook
 
 const Navbar = () => {
+    const location = useLocation();
+    const currentPath = location.pathname;
+
     return (
         <AppBar
             position="fixed"
@@ -19,18 +23,33 @@ const Navbar = () => {
             }}
         >
             <Toolbar>
-                <BottomNavigation showLabels sx={{ width: '100%', background: 'inherit' }}>
+                <BottomNavigation
+                    showLabels
+                    sx={{
+                        width: '100%',
+                        background: 'inherit',
+                    }}
+                >
                     <BottomNavigationAction
                         href="/"
-                        icon={<EqualizerIcon sx={{color: '#ececec'}} />}
+                        icon={<EqualizerIcon sx={{ color: currentPath === '/' ? 'white' : '#969696' }} />}
                         label="Stats"
-                        sx={{ color: '#ececec' }}
+                        style={{
+                            color: currentPath === '/' ? 'white' : '#969696',
+                            background: currentPath === '/' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                            borderRadius: '5px'
+                        }}
                     />
+
                     <BottomNavigationAction
-                        href="achievements"
-                        icon={<EmojiEventsIcon sx={{ color: '#ececec' }} />}
+                        href="/achievements"
+                        icon={<EmojiEventsIcon sx={{ color: currentPath === '/achievements' ? 'white' : '#969696' }} />}
                         label="Achievements"
-                        sx={{ color: '#ececec' }}
+                        style={{
+                            color: currentPath === '/achievements' ? 'white' : '#969696',
+                            background: currentPath === '/achievements' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                            borderRadius: '5px'
+                        }}
                     />
                 </BottomNavigation>
             </Toolbar>
