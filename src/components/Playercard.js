@@ -85,6 +85,10 @@ const Playercard = ({ photoId, name, games }) => {
                 ticks: {
                     callback: (value) => `€${value}M`,
                 },
+                grid: {
+                    display: true,
+                    color: 'rgba(100, 100, 100, 0.1)',
+                },
             },
             x: {
                 display: false
@@ -123,7 +127,7 @@ const Playercard = ({ photoId, name, games }) => {
                             </Typography>
                             <Typography variant="body2">
                                 Current Market Value:{' '}
-                                <NumAnimation targetNumber={marketValueDevelopment[marketValueDevelopment.length - 1]} fixedNum={1} colorChange={true}/> M€
+                                <NumAnimation targetNumber={marketValueDevelopment[marketValueDevelopment.length - 1]} fixedNum={1} colorChange={true} fontWeight={'bold'}/> M€
                             </Typography>
                         </Stack>
                     </Stack>
