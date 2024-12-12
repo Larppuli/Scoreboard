@@ -71,36 +71,50 @@ const Achievementcard = ({ photoId, name, games }) => {
         return snookersWon;
     };
 
+    const petanqueWins = () => {
+        let petanquesWon = 0;
+        
+        games.forEach((game) => {
+            if (game.winner === firstName && game.sport === 'Petanque') {
+                petanquesWon += 1;
+            }
+        });
+
+        return petanquesWon;
+    };
+
     const achievements = [
-        { achievement: 'Play 10 games', unlocked: participationCount >= 10 },
-        { achievement: 'Play 20 games', unlocked: participationCount >= 20 },
-        { achievement: 'Play 40 games', unlocked: participationCount >= 40 },
-        { achievement: 'Play 60 games', unlocked: participationCount >= 60 },
-        { achievement: 'Win 5 games', unlocked: gamesWon >= 5 },
-        { achievement: 'Win 10 games', unlocked: gamesWon >= 10 },
-        { achievement: 'Win 20 games', unlocked: gamesWon >= 20 },
-        { achievement: 'Win 3 games in a row', unlocked: winStreak() >= 3 },
-        { achievement: 'Win 5 games in a row', unlocked: winStreak() >= 5 },
-        { achievement: 'Play 1 vs 1 against everyone', unlocked: hasPlayedAgainstEveryone() },
-        { achievement: 'Play on every day of the week', unlocked: hasPlayedEveryDay() },
-        { achievement: 'Win 5 snooker games', unlocked: snookerWins() >= 5 }
+        { achievement: ['Play 20 games', 'Play 40 games', 'Play 100 games'], unlocked: [participationCount >= 20, participationCount >= 40, participationCount >= 100] },
+        { achievement: ['Win 10 games', 'Win 20 games', 'Win 40 games'], unlocked: [gamesWon >= 10, gamesWon >= 20, gamesWon >= 40] },
+        { achievement: ['Win 3 games in a row', 'Win 5 games in a row', 'Win 7 games in a row'], unlocked: [winStreak() >= 3, winStreak() >= 5, winStreak() >= 7] },
+        { achievement: ['Win 5 snooker games', 'Win 10 snooker games', 'Win 20 snooker games'], unlocked: [snookerWins() >= 5, snookerWins() >= 10, snookerWins() >= 20] },
+        { achievement: ['Win 5 petanque games', 'Win 10  petanque games', 'Win 20  petanque games'], unlocked: [petanqueWins() >= 5, petanqueWins() >= 10, petanqueWins() >= 20] },
+        { achievement: ['Play 1 vs 1 against everyone'], unlocked: [hasPlayedAgainstEveryone()] },
+        { achievement: ['Play on every day of the week'], unlocked: [hasPlayedEveryDay()] },
     ];
+
+    const unlockedCount = achievements
+    .flatMap(a => a.unlocked)
+    .filter(value => value === true).length;
 
     const rank = () => {
         if (unlockedCount === 0) {
-            return 'Loser';
+            return 'Newbie';
         } else if (unlockedCount <= 3) {
             return 'Rookie';
         } else if (unlockedCount <= 5) {
             return 'Intermediate';
-        } else if (unlockedCount <= 10) {
+        } else if (unlockedCount <= 8) {
+            return 'Experienced';
+        } else if (unlockedCount <= 12) {
             return 'Veteran';
-        } else {
+        } else if (unlockedCount <= 15) {
+            return 'Elite';
+        } else if (unlockedCount <= 17) {
             return 'Legend';
         }
     };
-
-    const unlockedCount = achievements.filter(a => a.unlocked).length;
+    
 
     return (
         <Grow in={true} timeout={700} >
@@ -138,7 +152,7 @@ const Achievementcard = ({ photoId, name, games }) => {
                                 {name}
                             </Typography>
                             <Typography variant="body2">
-                                <b>Achievements unlocked:</b> <NumAnimation targetNumber={unlockedCount} fixedNum={0} colorChange={false}/>/{achievements.length}
+                                <b>Achievements unlocked:</b> <NumAnimation targetNumber={unlockedCount} fixedNum={0} colorChange={false}/>/{achievements.flatMap(a => a.achievement).length}
                             </Typography>
                             <Typography variant="body2">
                                 <b>Rank:</b> {rank()}
@@ -151,8 +165,13 @@ const Achievementcard = ({ photoId, name, games }) => {
                                 {achievements.map((a, index) => (
                                     <Achievement
                                         key={index}
-                                        achievement={a.achievement}
-                                        unlocked={a.unlocked}
+                                        achievement={a.achievement[
+                                            a.unlocked.filter(value => value === true).length === a.achievement.length
+                                                ? a.unlocked.filter(value => value === true).length + 1
+                                                : a.unlocked.filter(value => value === true).length
+                                        ]}
+                                        unlocked={a.unlocked.filter(value => value === true).length}
+                                        stars={a.achievement.length}
                                     />
                                 ))}
                             </Stack>
