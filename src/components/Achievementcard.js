@@ -44,7 +44,7 @@ const Achievementcard = ({ photoId, name, games }) => {
     };
 
     const hasPlayedAgainstEveryone = () => {
-        const players = []
+        const players = [];
     
         games.forEach((game) => {
             const participants = game.participants.split(',').map(name => name.trim())
@@ -59,6 +59,18 @@ const Achievementcard = ({ photoId, name, games }) => {
         return players.length === 4;
     };
 
+    const snookerWins = () => {
+        let snookersWon = 0;
+        
+        games.forEach((game) => {
+            if (game.winner === firstName && game.sport === 'Snooker') {
+                snookersWon += 1;
+            }
+        });
+
+        return snookersWon;
+    };
+
     const achievements = [
         { achievement: 'Play 10 games', unlocked: participationCount >= 10 },
         { achievement: 'Play 20 games', unlocked: participationCount >= 20 },
@@ -71,6 +83,7 @@ const Achievementcard = ({ photoId, name, games }) => {
         { achievement: 'Win 5 games in a row', unlocked: winStreak() >= 5 },
         { achievement: 'Play 1 vs 1 against everyone', unlocked: hasPlayedAgainstEveryone() },
         { achievement: 'Play on every day of the week', unlocked: hasPlayedEveryDay() },
+        { achievement: 'Win 5 snooker games', unlocked: snookerWins() >= 5 }
     ];
 
     const rank = () => {
