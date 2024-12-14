@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { Accordion, AccordionDetails, AccordionSummary, Stack } from '@mui/material';
@@ -8,6 +8,7 @@ import NumAnimation from './NumAnimation';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const Achievementcard = ({ photoId, name, games }) => {
+    const [expanded, setExpanded] = useState(false);
     const firstName = name.split(' ')[0];
     const participationCount = games.filter(match => match.participants.split(', ').includes(firstName)).length;
     const gamesWon = games.filter((game) => game.winner === firstName).length;
@@ -84,13 +85,13 @@ const Achievementcard = ({ photoId, name, games }) => {
     };
 
     const achievements = [
-        { achievement: ['Play 20 games', 'Play 40 games', 'Play 100 games'], unlocked: [participationCount >= 20, participationCount >= 40, participationCount >= 100] },
-        { achievement: ['Win 10 games', 'Win 20 games', 'Win 40 games'], unlocked: [gamesWon >= 10, gamesWon >= 20, gamesWon >= 40] },
-        { achievement: ['Win 3 games in a row', 'Win 5 games in a row', 'Win 7 games in a row'], unlocked: [winStreak() >= 3, winStreak() >= 5, winStreak() >= 7] },
-        { achievement: ['Win 5 snooker games', 'Win 10 snooker games', 'Win 20 snooker games'], unlocked: [snookerWins() >= 5, snookerWins() >= 10, snookerWins() >= 20] },
-        { achievement: ['Win 5 petanque games', 'Win 10  petanque games', 'Win 20  petanque games'], unlocked: [petanqueWins() >= 5, petanqueWins() >= 10, petanqueWins() >= 20] },
-        { achievement: ['Play 1 vs 1 against everyone'], unlocked: [hasPlayedAgainstEveryone()] },
-        { achievement: ['Play on every day of the week'], unlocked: [hasPlayedEveryDay()] },
+        { achievement: ['Play 20 games', 'Play 40 games', 'Play 100 games', 'Play 150 games'], unlocked: [participationCount >= 20, participationCount >= 40, participationCount >= 100, participationCount >= 150], name: "Game Enthusiast" },
+        { achievement: ['Win 10 games', 'Win 20 games', 'Win 40 games', 'Win 60 games'], unlocked: [gamesWon >= 10, gamesWon >= 20, gamesWon >= 40, gamesWon >= 60], name: "Champion's Path" },
+        { achievement: ['Win 3 games in a row', 'Win 4 games in a row', 'Win 6 games in a row', 'Win 7 games in a row'], unlocked: [winStreak() >= 3, winStreak() >= 4, winStreak() >= 6, winStreak() >= 7], name: "Streak Conqueror" },
+        { achievement: ['Win 5 snooker games', 'Win 10 snooker games', 'Win 20 snooker games', 'Win 40 snooker games'], unlocked: [snookerWins() >= 5, snookerWins() >= 10, snookerWins() >= 20, snookerWins() >= 40], name: "Snooker Specialist" },
+        { achievement: ['Win 5 petanque games', 'Win 10  petanque games', 'Win 20  petanque games', 'Win 40  petanque games'], unlocked: [petanqueWins() >= 5, petanqueWins() >= 10, petanqueWins() >= 20, petanqueWins() >= 40], name: "Petanque Mastery" },
+        { achievement: ['Play 1 vs 1 against everyone'], unlocked: [hasPlayedAgainstEveryone()], name: "Ultimate Competitor" },
+        { achievement: ['Play on every day of the week'], unlocked: [hasPlayedEveryDay()], name: "Weekly Warrior" },
     ];
 
     const unlockedCount = achievements
@@ -100,21 +101,24 @@ const Achievementcard = ({ photoId, name, games }) => {
     const rank = () => {
         if (unlockedCount === 0) {
             return 'Newbie';
-        } else if (unlockedCount <= 3) {
+        } else if (unlockedCount <= 4) {
             return 'Rookie';
-        } else if (unlockedCount <= 5) {
+        } else if (unlockedCount <= 7) {
             return 'Intermediate';
-        } else if (unlockedCount <= 8) {
+        } else if (unlockedCount <= 10) {
             return 'Experienced';
-        } else if (unlockedCount <= 12) {
-            return 'Veteran';
         } else if (unlockedCount <= 15) {
+            return 'Veteran';
+        } else if (unlockedCount <= 20) {
             return 'Elite';
-        } else if (unlockedCount <= 17) {
+        } else {
             return 'Legend';
         }
     };
-    
+
+    const handleAccordionChange = () => {
+        setExpanded(!expanded);
+    };   
 
     return (
         <Grow in={true} timeout={700} >
@@ -135,7 +139,10 @@ const Achievementcard = ({ photoId, name, games }) => {
                             backgroundColor: '#080c0c',
                             color: 'white',
                             boxShadow: 'none',
-                        }}>
+                        }}
+                        expanded={expanded}
+                        onChange={handleAccordionChange}
+                        >
                         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color:'white' }}/>} >
                             <Stack direction="row" alignItems='center'>
                         <img
@@ -172,6 +179,8 @@ const Achievementcard = ({ photoId, name, games }) => {
                                         ]}
                                         unlocked={a.unlocked.filter(value => value === true).length}
                                         stars={a.achievement.length}
+                                        expanded={expanded}
+                                        name={a.name}
                                     />
                                 ))}
                             </Stack>
