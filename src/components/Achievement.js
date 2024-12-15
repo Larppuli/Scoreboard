@@ -15,7 +15,7 @@ const Achievement = ({ achievement, unlocked, stars, expanded, name }) => {
         <TableContainer>
             <Table sx={{ borderCollapse: 'collapse' }}>
                 <TableBody >
-                    <TableRow sx={{ border: 'none', width: '100%' }}>
+                    <TableRow sx={{ border: 'none', width: '100%', alignContent: 'center' }}>
                         <TableCell
                             sx={{
                                 border: 'none',
@@ -37,6 +37,7 @@ const Achievement = ({ achievement, unlocked, stars, expanded, name }) => {
                                 <TableCell
                                     key={index}
                                     sx={{
+                                        fontSize: 'clamp(14px, 6vw, 17px)',
                                         border: 'none',
                                         padding: 0,
                                         maxWidth: '100px',
