@@ -139,7 +139,14 @@ const Achievementcard = ({ photoId, name, games }) => {
                         marginTop: '10px',
                         width: '95%',
                         maxWidth: '1000px',
-                        paddingBottom: '10px'
+                        paddingBottom: '10px',
+                        boxShadow: 'none',
+                        '& .MuiAccordionSummary-content': {
+                            margin: 0.5, // Remove default margin from the summary content
+                        },
+                        '& .MuiAccordionDetails-root': {
+                            padding: '10px', // Padding for the details section to maintain space
+                        },
                     }}
                     expanded={expanded}
                     onChange={handleAccordionChange}
