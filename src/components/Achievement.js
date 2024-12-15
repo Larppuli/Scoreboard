@@ -52,8 +52,7 @@ const Achievement = ({ achievement, unlocked, stars, expanded, name }) => {
                                             : 'color 0.3s ease-in-out, transform 0.3s ease-in-out, filter 0.3s ease-in-out',
                                         animation: expanded && (index < unlocked) ? 'quick-spin 0.5s ease-in-out' : 'none',
                                         animationDelay: `${1 + index * 0.7}s`,
-                                        position: 'relative',
-                                        zIndex: 1,
+                                        marginLeft: 0.08,
                                         '@keyframes quick-spin': {
                                             '0%': { transform: 'rotate(0deg)' },
                                             '100%': { transform: 'rotate(360deg)' },
