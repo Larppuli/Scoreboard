@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
 import { Accordion, AccordionDetails, AccordionSummary, Stack } from '@mui/material';
 import { Grow } from '@mui/material';
 import Achievement from './Achievement';
@@ -121,8 +120,8 @@ const Achievementcard = ({ photoId, name, games }) => {
     };   
 
     return (
-        <Grow in={true} timeout={700} >
-            <Paper
+        <Grow in={true} timeout={700}>
+            <Stack spacing={2}
                 sx={{
                     background: '#080c0c',
                     color: 'white',
@@ -130,64 +129,65 @@ const Achievementcard = ({ photoId, name, games }) => {
                     marginTop: '10px',
                     width: '95%',
                     maxWidth: '1000px',
-                }}
-                elevation={3}
-                align="left"
-            >
-                <Stack spacing={2}>
-                    <Accordion sx={{
-                            backgroundColor: '#080c0c',
-                            color: 'white',
-                            boxShadow: 'none',
+                    borderRadius: '5px'
+                }}>
+                <Accordion 
+                    sx={{
+                        background: '#080c0c',
+                        color: 'white',
+                        padding: '10px',
+                        marginTop: '10px',
+                        width: '95%',
+                        maxWidth: '1000px',
+                        paddingBottom: '10px'
+                    }}
+                    expanded={expanded}
+                    onChange={handleAccordionChange}
+                    >
+                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color:'white' }}/>} >
+                        <Stack direction="row" alignItems='center'>
+                    <img
+                        src={`https://drive.google.com/thumbnail?id=${photoId}`}
+                        alt="Player Thumbnail"
+                        style={{
+                            borderRadius: '6%',
+                            width: '60px',
+                            height: '60px',
                         }}
-                        expanded={expanded}
-                        onChange={handleAccordionChange}
-                        >
-                        <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color:'white' }}/>} >
-                            <Stack direction="row" alignItems='center'>
-                        <img
-                            src={`https://drive.google.com/thumbnail?id=${photoId}`}
-                            alt="Player Thumbnail"
-                            style={{
-                                borderRadius: '6%',
-                                width: '60px',
-                                height: '60px',
-                            }}
-                        />
-                        <Stack paddingLeft={1} spacing={0.5}>
-                            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                                {name}
-                            </Typography>
-                            <Typography variant="body2">
-                                <b>Achievements unlocked:</b> <NumAnimation targetNumber={unlockedCount} fixedNum={0} colorChange={false}/>/{achievements.flatMap(a => a.achievement).length}
-                            </Typography>
-                            <Typography variant="body2">
-                                <b>Rank:</b> {rank()}
-                            </Typography>
-                        </Stack>
+                    />
+                    <Stack paddingLeft={1} spacing={0.5}>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                            {name}
+                        </Typography>
+                        <Typography variant="body2">
+                            <b>Achievements unlocked:</b> <NumAnimation targetNumber={unlockedCount} fixedNum={0} colorChange={false}/>/{achievements.flatMap(a => a.achievement).length}
+                        </Typography>
+                        <Typography variant="body2">
+                            <b>Rank:</b> {rank()}
+                        </Typography>
                     </Stack>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Stack spacing={-2}>
-                                {achievements.map((a, index) => (
-                                    <Achievement
-                                        key={index}
-                                        achievement={a.achievement[
-                                            a.unlocked.filter(value => value === true).length === a.achievement.length
-                                                ? a.unlocked.filter(value => value === true).length + 1
-                                                : a.unlocked.filter(value => value === true).length
-                                        ]}
-                                        unlocked={a.unlocked.filter(value => value === true).length}
-                                        stars={a.achievement.length}
-                                        expanded={expanded}
-                                        name={a.name}
-                                    />
-                                ))}
-                            </Stack>
-                        </AccordionDetails>
-                    </Accordion>
                 </Stack>
-            </Paper>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Stack spacing={-2} >
+                            {achievements.map((a, index) => (
+                                <Achievement
+                                    key={index}
+                                    achievement={a.achievement[
+                                        a.unlocked.filter(value => value === true).length === a.achievement.length
+                                            ? a.unlocked.filter(value => value === true).length + 1
+                                            : a.unlocked.filter(value => value === true).length
+                                    ]}
+                                    unlocked={a.unlocked.filter(value => value === true).length}
+                                    stars={a.achievement.length}
+                                    expanded={expanded}
+                                    name={a.name}
+                                />
+                            ))}
+                        </Stack>
+                    </AccordionDetails>
+                </Accordion>
+            </Stack>
         </Grow>
     );
 };
