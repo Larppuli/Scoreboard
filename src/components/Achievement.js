@@ -33,30 +33,30 @@ const Achievement = ({ achievement, unlocked, stars, expanded, name }) => {
                                 </Typography>
                             </Stack>
                         </TableCell>
-                        <TableCell
-                            sx={{
-                                border: 'none',
-                                padding: 0,
-                                maxWidth: '100px',
-                                textAlign: 'center',
-                            }}
-                        >
                             {Array.from({ length: stars }).map((_, index) => (
-                                <StarIcon
+                                <TableCell
                                     key={index}
                                     sx={{
-                                        fontSize: 'clamp(12px, 6vw, 29px)',
-                                        color: (index < unlocked) && expanded ? 'gold' : '#3a3a3a',
-                                        transition: expanded
-                                            ? `color 0.5s ${1 + index * 0.7}s linear, transform 0.5s linear, filter 0.5s ${1 + index * 0.7}s linear`
-                                            : 'color 0.3s linear, transform 0.3s linear, filter 0.3s linear',
-                                        filter: expanded && (index < unlocked)
-                                            ? 'drop-shadow(0 0 1.5px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 3px rgba(255, 215, 0, 0.8))'
-                                            : 'none',
+                                        border: 'none',
+                                        padding: 0,
+                                        maxWidth: '100px',
+                                        textAlign: 'center',
                                     }}
-                                />
+                                >
+                                    <StarIcon
+                                        sx={{
+                                            fontSize: 'clamp(12px, 6vw, 29px)',
+                                            color: (index < unlocked) && expanded ? 'gold' : '#3a3a3a',
+                                            transition: expanded
+                                                ? `color 0.5s ${1 + index * 0.7}s linear, transform 0.5s linear, filter 0.5s ${1 + index * 0.7}s linear`
+                                                : 'color 0.3s linear, transform 0.3s linear, filter 0.3s linear',
+                                            filter: expanded && (index < unlocked)
+                                                ? 'drop-shadow(0 0 1.5px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 3px rgba(255, 215, 0, 0.8))'
+                                                : 'none',
+                                        }}
+                                    />
+                                </TableCell>
                             ))}
-                        </TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
