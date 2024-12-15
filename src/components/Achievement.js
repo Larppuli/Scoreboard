@@ -14,30 +14,39 @@ const Achievement = ({ achievement, unlocked, stars, expanded, name }) => {
     return (
         <TableContainer>
             <Table sx={{ borderCollapse: 'collapse' }}>
-                <TableBody>
-                    <TableRow sx={{ border: 'none' }}>
+                <TableBody >
+                    <TableRow sx={{ border: 'none', width: '100%' }}>
                         <TableCell
                             sx={{
                                 border: 'none',
                                 color: 'white',
                                 fontWeight: 'bold',
-                                width: 200,
+                                width: '69%',
                             }}
                         >
                             <Stack>
-                                <Typography fontWeight={"bold"} fontSize={20}>
+                                <Typography fontWeight={"bold"} fontSize={'clamp(17px, 2vw, 21px)'}>
                                     {name}
                                 </Typography>
-                                <Typography fontSize={14}>
+                                <Typography fontSize={'clamp(13px, 2vw, 21px)'}>
                                     {achievement}
                                 </Typography>
                             </Stack>
                         </TableCell>
-                        <TableCell sx={{ border: 'none' }}>
+                        <TableCell
+                            sx={{ 
+                                border: 'none',
+                                padding: 0,
+                                maxWidth: '100px',
+                                align: 'center',
+                                textAlign: 'center',
+                            }}
+                         >
                             {Array.from({ length: stars }).map((_, index) => (
                                 <StarIcon
                                     key={index}
                                     sx={{
+                                        fontSize: 'clamp(12px, 6vw, 29px)',
                                         color: (index < unlocked) && expanded ? 'gold' : '#3a3a3a',
                                         transition: `color 0.5s ${1 + index * 0.7}s ease-in-out, filter 0.5s ${1 + index * 0.7}s ease-in-out`,
                                         filter: (index < unlocked) && expanded
