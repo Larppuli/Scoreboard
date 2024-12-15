@@ -48,15 +48,11 @@ const Achievement = ({ achievement, unlocked, stars, expanded, name }) => {
                                         fontSize: 'clamp(12px, 6vw, 29px)',
                                         color: (index < unlocked) && expanded ? 'gold' : '#3a3a3a',
                                         transition: expanded
-                                            ? `color 0.5s ${1 + index * 0.7}s ease-in-out, transform 0.5s ease-in-out`
+                                            ? `color 0.5s ${1 + index * 0.7}s ease-in-out, transform 0.5s ease-in-out, filter 0.5s ${1 + index * 0.7}s ease-in-out`
                                             : 'color 0.3s ease-in-out, transform 0.3s ease-in-out, filter 0.3s ease-in-out',
-                                        animation: expanded && (index < unlocked) ? 'quick-spin 0.5s ease-in-out' : 'none',
-                                        animationDelay: `${1 + index * 0.7}s`,
-                                        marginLeft: 0.08,
-                                        '@keyframes quick-spin': {
-                                            '0%': { transform: 'rotate(0deg)' },
-                                            '100%': { transform: 'rotate(360deg)' },
-                                        },
+                                        filter: expanded && (index < unlocked)
+                                            ? 'drop-shadow(0 0 1.5px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 3px rgba(255, 215, 0, 0.8))'
+                                            : 'none',
                                     }}
                                 />
                             ))}
