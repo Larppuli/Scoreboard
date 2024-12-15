@@ -38,7 +38,6 @@ const Achievement = ({ achievement, unlocked, stars, expanded, name }) => {
                                 border: 'none',
                                 padding: 0,
                                 maxWidth: '100px',
-                                align: 'center',
                                 textAlign: 'center',
                             }}
                          >
