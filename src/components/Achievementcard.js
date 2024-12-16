@@ -120,12 +120,11 @@ const Achievementcard = ({ photoId, name, games }) => {
     };   
 
     return (
-        <Grow in={true} timeout={700}>
+        <Grow in={true} timeout={700} > 
             <Stack spacing={2}
                 sx={{
                     background: '#080c0c',
                     color: 'white',
-                    padding: '10px',
                     marginTop: '10px',
                     width: '95%',
                     maxWidth: '1000px',
@@ -145,30 +144,57 @@ const Achievementcard = ({ photoId, name, games }) => {
                     expanded={expanded}
                     onChange={handleAccordionChange}
                     >
-                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color:'white' }}/>} >
-                        <Stack direction="row" alignItems='center'>
-                    <img
-                        src={`https://drive.google.com/thumbnail?id=${photoId}`}
-                        alt="Player Thumbnail"
-                        style={{
-                            borderRadius: '6%',
-                            width: '60px',
-                            height: '60px',
-                        }}
-                    />
-                    <Stack paddingLeft={1} spacing={0.5}>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                            {name}
-                        </Typography>
-                        <Typography variant="body2">
-                            <b>Achievements unlocked:</b> <NumAnimation targetNumber={unlockedCount} fixedNum={0} colorChange={false}/>/{achievements.flatMap(a => a.achievement).length}
-                        </Typography>
-                        <Typography variant="body2">
-                            <b>Rank:</b> {rank()}
-                        </Typography>
+                <AccordionSummary
+                expandIcon={<ExpandMoreIcon sx={{ color:'white' }}/>}
+                      sx={{
+
+                        "& .MuiAccordionSummary-content.Mui-expanded": {
+                          margin: "12px 0"
+                        }
+                      }}
+                    >
+                    <Stack direction="column" sx={{ width: '100%', paddingLeft: '2%' }}>
+                        <Stack direction="row" alignItems="center" justifyContent="space-between">
+                            <Stack direction="row" alignItems="center">
+                                <img
+                                    src={`/images/insignia_${rank()}.png`}
+                                    alt="Insignia"
+                                    style={{ height: '60px' }}
+                                />
+                                <img
+                                    src={`https://drive.google.com/thumbnail?id=${photoId}`}
+                                    alt="Player Thumbnail"
+                                    style={{
+                                        borderRadius: '6%',
+                                        width: '60px',
+                                        height: '60px',
+                                        marginLeft: '10px',
+                                    }}
+                                />
+                                <Stack paddingLeft={1} spacing={0.5}>
+                                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                                        {name}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        <b>Achievements:</b>{' '}
+                                        <NumAnimation
+                                            targetNumber={unlockedCount}
+                                            fixedNum={0}
+                                            colorChange={false}
+                                        />
+                                        /{achievements.flatMap((a) => a.achievement).length}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        <b>Rank:</b> {rank()}
+                                    </Typography>
+                                </Stack>
+                            </Stack>
+                        </Stack>
+                        <Stack alignItems="center" justifyContent="center" sx={{ marginTop: '10px' }}>
+                            
+                        </Stack>
                     </Stack>
-                </Stack>
-                    </AccordionSummary>
+                </AccordionSummary>
                     <AccordionDetails>
                         <Stack spacing={-2} >
                             {achievements.map((a, index) => (
