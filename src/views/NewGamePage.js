@@ -145,7 +145,7 @@ const NewGamePage = () => {
                     </Button>
                         <Grow in={savingSuccess} timeout={500} sx={{ marginTop: '20px' }}>
                             <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-                                    Saved game successfully!
+                                    Game saved successfully!
                             </Alert>
                         </Grow>
                 </Stack>
