@@ -4,7 +4,8 @@ import Toolbar from '@mui/material/Toolbar';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import { BottomNavigationAction, BottomNavigation } from '@mui/material';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import { useLocation } from 'react-router'; // Import useLocation hook
+import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
+import { useLocation } from 'react-router';
 
 const Navbar = () => {
     const location = useLocation();
@@ -48,6 +49,16 @@ const Navbar = () => {
                         style={{
                             color: currentPath === '/achievements' ? 'white' : '#969696',
                             background: currentPath === '/achievements' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                            borderRadius: '5px'
+                        }}
+                    />
+                    <BottomNavigationAction
+                        href="/new-game"
+                        icon={<SportsKabaddiIcon sx={{ color: currentPath === '/new-game' ? 'white' : '#969696' }} />}
+                        label="New game"
+                        style={{
+                            color: currentPath === '/new-game' ? 'white' : '#969696',
+                            background: currentPath === '/new-game' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
                             borderRadius: '5px'
                         }}
                     />
