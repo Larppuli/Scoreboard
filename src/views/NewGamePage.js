@@ -86,7 +86,7 @@ const NewGamePage = () => {
                         POIKAINSCORE
                     </Typography>
                 </Stack>
-                <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '30px', paddingTop: '90px' }} color="white">
+                <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '30px', paddingTop: '60px' }} color="white">
                     New Game
                 </Typography>
                 <Stack sx={{ marginTop: 4, direction: 'column', maxWidth: '500px', width: '70%' }}>
