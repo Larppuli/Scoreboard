@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 const Achievementcard = ({ photoId, name, games }) => {
     const [expanded, setExpanded] = useState(false);
     const firstName = name.split(' ')[0];
-    const participationCount = games.filter(match => match.participants.split(', ').includes(firstName)).length;
+    const participationCount = games.filter(match => match.participants.includes(firstName)).length;
     const gamesWon = games.filter((game) => game.winner === firstName).length;
     
     const winStreak = () => {
@@ -32,7 +32,7 @@ const Achievementcard = ({ photoId, name, games }) => {
         const daysPlayed = new Set();
         
         games.forEach((game) => {
-            if (game.participants.split(', ').includes(firstName)) {
+            if (game.participants.includes(firstName)) {
                 const [day, month, year] =game.date.split('.').map(Number);
                 const gameDate = new Date(year, month - 1, day);
                 const dayOfWeek = gameDate.getDay();
@@ -47,7 +47,7 @@ const Achievementcard = ({ photoId, name, games }) => {
         const players = [];
     
         games.forEach((game) => {
-            const participants = game.participants.split(',').map(name => name.trim())
+            const participants = game.participants.map(name => name.trim())
             if (participants.length === 2) {
                 for (const participant of participants) {
                     if (!players.includes(participant)) {
