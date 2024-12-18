@@ -139,7 +139,16 @@ const NewGamePage = () => {
                         onClick={handleSave}
                         variant="outlined"
                         disabled={!(selectedDate && selectedParticipants.length && selectedSport && selectedWinner)}
-                        sx={{ borderColor: '#c84c4c', color: '#c84c4c', padding: '20px', marginTop: '20px' }}
+                        sx={{ 
+                            borderColor: '#c84c4c', 
+                            color: '#c84c4c', 
+                            padding: '20px', 
+                            marginTop: '20px',
+                            '&.Mui-disabled': {
+                                borderColor: '#080c0c',
+                                color: '#080c0c',
+                            },
+                         }}
                     >
                         Save Game
                     </Button>
