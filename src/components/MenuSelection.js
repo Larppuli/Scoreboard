@@ -1,13 +1,18 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel, OutlinedInput, Checkbox, ListItemText } from '@mui/material';
 import WarningFilter from '../utils/WarningFilter';
 
 const MenuSelection = forwardRef(({ multi, selections, label, onSelectionChange }, ref) => {
     const [selectedItems, setSelectedItems] = useState([]);
 
     const handleSelectionChange = (event) => {
-        setSelectedItems(event.target.value);
-        onSelectionChange(event.target.value);
+        const {
+            target: { value },
+        } = event;
+        setSelectedItems(
+            typeof value === 'string' ? value.split(',') : value
+        );
+        onSelectionChange(value);
     };
 
     useImperativeHandle(ref, () => ({
@@ -19,12 +24,17 @@ const MenuSelection = forwardRef(({ multi, selections, label, onSelectionChange 
     return (
         <WarningFilter>
             <FormControl sx={{ marginTop: '20px' }}>
-                <InputLabel sx={{ color: 'white' }}>{label}</InputLabel>
+                <InputLabel id="demo-multiple-checkbox-label" sx={{ color: 'white' }}>
+                    {label}
+                </InputLabel>
                 <Select
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
                     multiple={multi}
                     value={selectedItems}
                     onChange={handleSelectionChange}
-                    displayEmpty
+                    input={<OutlinedInput label={label} />}
+                    renderValue={(selected) => selected.join(', ')}
                     sx={{
                         '& .MuiInputLabel-root': {
                             color: 'white',
@@ -39,26 +49,21 @@ const MenuSelection = forwardRef(({ multi, selections, label, onSelectionChange 
                             '& fieldset': {
                                 borderColor: 'white',
                             },
-                            '&:hover fieldset': {
-                                borderColor: 'lightblue',
-                            },
-                            '&.Mui-focused fieldset': {
-                                borderColor: 'lightblue',
-                            },
                         },
                         '& input::placeholder': {
                             color: 'white',
                         },
                         background: '#080c0c',
                         borderRadius: '3px',
-                        color: 'white'
+                        color: 'white',
                     }}
                 >
-                    {selections.map((item, index) => 
-                        <MenuItem value={item} key={index}>
-                            {item}
+                    {selections.map((item, index) => (
+                        <MenuItem key={index} value={item}>
+                            <Checkbox checked={selectedItems.includes(item)} />
+                            <ListItemText primary={item} />
                         </MenuItem>
-                    )}
+                    ))}
                 </Select>
             </FormControl>
         </WarningFilter>
