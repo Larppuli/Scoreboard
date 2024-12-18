@@ -137,13 +137,14 @@ const NewGamePage = () => {
                     />
                     <Button
                         onClick={handleSave}
-                        variant="outlined"
+                        variant="contained"
                         disabled={!(selectedDate && selectedParticipants.length && selectedSport && selectedWinner)}
                         sx={{ 
-                            borderColor: '#c84c4c', 
-                            color: '#c84c4c', 
+                            background: '#c84c4c', 
                             padding: '20px', 
                             marginTop: '20px',
+                            fontSize: '15px',
+                            fontFamily: '"Audiowide", sans-serif',
                             '&.Mui-disabled': {
                                 borderColor: '#080c0c',
                                 color: '#080c0c',
