@@ -6,14 +6,15 @@ import MenuSelection from '../components/MenuSelection';
 import Button from '@mui/material/Button';
 import { Grow } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import CheckIcon from '@mui/icons-material/Check';
 
 const NewGamePage = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedParticipants, setSelectedParticipants] = useState([]);
     const [selectedSport, setSelectedSport] = useState("");
     const [selectedWinner, setSelectedWinner] = useState("");
-    const [savingSuccess, setSavingSuccess] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertText, setAlertText] = useState("");
+    const [severity, setSeverity] = useState("");
 
     const participantsRef = useRef(null);
     const sportRef = useRef(null);
@@ -65,15 +66,28 @@ const NewGamePage = () => {
                 setSelectedSport('');
                 setSelectedWinner('');
                 handleClearSelections();
-                setSavingSuccess(true)
+                setSeverity("success");
+                setAlertText("Game saved successfully!");
+                setShowAlert(true);
                 setTimeout(() => {
-                    setSavingSuccess(false);
+                    setShowAlert(false);
                 }, 3000);
             } else {
-                console.log('Failed to save the game');
+                setSeverity("error");
+                setAlertText("Error while saving game");
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 3000);
             }
         } catch (error) {
             console.error('Error:', error);
+            setSeverity("error");
+            setAlertText("Error while saving game");
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 3000);
         }
     };
 
@@ -153,9 +167,9 @@ const NewGamePage = () => {
                     >
                         Save Game
                     </Button>
-                        <Grow in={savingSuccess} timeout={500} sx={{ marginTop: '20px' }}>
-                            <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-                                    Game saved successfully!
+                        <Grow in={showAlert} timeout={500} sx={{ marginTop: '20px' }}>
+                            <Alert variant="filled" severity={severity}>
+                                    {alertText}
                             </Alert>
                         </Grow>
                 </Stack>
