@@ -4,12 +4,16 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import MenuSelection from '../components/MenuSelection';
 import Button from '@mui/material/Button';
+import { Grow } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
 
 const NewGamePage = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedParticipants, setSelectedParticipants] = useState([]);
     const [selectedSport, setSelectedSport] = useState("");
     const [selectedWinner, setSelectedWinner] = useState("");
+    const [savingSuccess, setSavingSuccess] = useState(false);
 
     const participantsRef = useRef(null);
     const sportRef = useRef(null);
@@ -37,19 +41,40 @@ const NewGamePage = () => {
         winnerRef.current?.handleClearSelection();
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const object = {
-            date: selectedDate,
+            date: selectedDate.format('YYYY-MM-DD'),
             participants: selectedParticipants,
             sport: selectedSport,
             winner: selectedWinner
         };
-        console.log(object);
-        setSelectedDate(null);
-        setSelectedParticipants([]);
-        setSelectedSport('');
-        setSelectedWinner('');
-        handleClearSelections();
+    
+        try {
+            const apiUrl = process.env.REACT_APP_API_URL;
+            const response = await fetch(`${apiUrl}/games`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(object),
+            });
+    
+            if (response.ok) {
+                setSelectedDate(null);
+                setSelectedParticipants([]);
+                setSelectedSport('');
+                setSelectedWinner('');
+                handleClearSelections();
+                setSavingSuccess(true)
+                setTimeout(() => {
+                    setSavingSuccess(false);
+                }, 3000);
+            } else {
+                console.log('Failed to save the game');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -61,7 +86,7 @@ const NewGamePage = () => {
                         POIKAINSCORE
                     </Typography>
                 </Stack>
-                <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '30px', paddingTop: '130px' }} color="white">
+                <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '30px', paddingTop: '110px' }} color="white">
                     New Game
                 </Typography>
                 <Stack sx={{ marginTop: 4, direction: 'column', maxWidth: '500px', width: '70%' }}>
@@ -118,6 +143,11 @@ const NewGamePage = () => {
                     >
                         Save Game
                     </Button>
+                        <Grow in={savingSuccess} timeout={500} sx={{ marginTop: '20px' }}>
+                            <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+                                    Saved game successfully!
+                            </Alert>
+                        </Grow>
                 </Stack>
             </Stack>
         </Box>
