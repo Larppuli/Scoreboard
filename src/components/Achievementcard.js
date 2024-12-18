@@ -11,7 +11,8 @@ const Achievementcard = ({ photoId, name, games }) => {
     const firstName = name.split(' ')[0];
     const participationCount = games.filter(match => match.participants.includes(firstName)).length;
     const gamesWon = games.filter((game) => game.winner === firstName).length;
-    
+    const playerGames = games.filter((game) => game.participants.includes(firstName));
+
     const winStreak = () => {
         let maxStreak = 0;
         let currentStreak = 0;
@@ -44,19 +45,17 @@ const Achievementcard = ({ photoId, name, games }) => {
     };
 
     const hasPlayedAgainstEveryone = () => {
-        const players = [];
+        const players = new Set();
     
-        games.forEach((game) => {
-            const participants = game.participants.map(name => name.trim())
-            if (participants.length === 2) {
+        playerGames.forEach((game) => {
+            if (game.participants.length === 2) {
+                const participants = game.participants
                 for (const participant of participants) {
-                    if (!players.includes(participant)) {
-                        players.push(participant)
-                    }
+                    players.add(participant)
                 }
-            }
+            };
         });
-        return players.length === 4;
+        return players.size === 4;
     };
 
     const snookerWins = () => {
@@ -202,7 +201,7 @@ const Achievementcard = ({ photoId, name, games }) => {
                                     key={index}
                                     achievement={a.achievement[
                                         a.unlocked.filter(value => value === true).length === a.achievement.length
-                                            ? a.unlocked.filter(value => value === true).length + 1
+                                            ? a.unlocked.filter(value => value === true).length - 1
                                             : a.unlocked.filter(value => value === true).length
                                     ]}
                                     unlocked={a.unlocked.filter(value => value === true).length}
