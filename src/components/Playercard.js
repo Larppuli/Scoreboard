@@ -26,11 +26,11 @@ const Playercard = ({ photoId, name, games }) => {
         const marketValues = [];
 
         playerGames.forEach((game) => {
-            const weight = game.participants.length * 0.1;
-            const lossWeight = (10 / game.participants.length * 3);
+            const weight = game.participants.length * 1.5;
+            const lossWeight = (marketValue * 0.1 / game.participants.length);
 
             if (game.winner === firstName) {
-                marketValue += 3 * weight;
+                marketValue += weight;
             } else {
                 marketValue -= lossWeight;
             }
