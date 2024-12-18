@@ -1,37 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import Papa from 'papaparse';
-import { BrowserRouter as Router, Routes, Route } from 'react-router'; // Correct imports
+import { BrowserRouter as Router, Routes, Route } from 'react-router';
 import Navbar from './components/Navbar';
 import HomePage from './views/HomePage';
 import AchievementPage from './views/AchievementsPage';
-
+import NewGamePage from './views/NewGamePage';
 
 const App = () => {
   const [data, setData] = useState([]);
 
-    useEffect(() => {
-      const fetchData = async () => {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await fetch(apiUrl);
-        const csvText = await response.text();
+        const response = await fetch(`${apiUrl}/games`);
 
-        Papa.parse(csvText, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (result) => {
-            const games = result.data.map(row => ({
-              date: row['Pelipäivä'],
-              winner: row['Voittaja'],
-              participants: row['Osallistujat'],
-              sport: row['Laji'], 
-            }));
-            setData(games);
-          },
-        });
-      };
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
 
-      fetchData();
-    }, []);
+        const jsonData = await response.json();
+
+        const games = jsonData.map(row => ({
+          date: formatDate(row.date),
+          winner: row.winner,
+          participants: row.participants,
+          sport: row.sport,
+        }));
+
+        setData(games);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Router>
@@ -39,6 +50,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage data={data} />} />
         <Route path="/achievements" element={<AchievementPage data={data} />} />
+        <Route path="/new-game" element={<NewGamePage />} />
       </Routes>
     </Router>
   );
