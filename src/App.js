@@ -21,7 +21,7 @@ const App = () => {
     const fetchData = async () => {
       try {
         const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await fetch(`${apiUrl}/games`);
+        const response = await fetch(`${apiUrl}/api/games`);
 
         if (!response.ok) {
           throw new Error('Failed to fetch data');
@@ -30,6 +30,7 @@ const App = () => {
         const jsonData = await response.json();
 
         const games = jsonData.map(row => ({
+          id: row.id,
           date: formatDate(row.date),
           winner: row.winner,
           participants: row.participants,
