@@ -24,7 +24,7 @@ const GamesView = ({ data }) => {
             sx={{
                 marginTop: '40px',
                 overflowY: 'auto',
-                maxHeight: '650px',
+                maxHeight: '550px',
                 backgroundColor: '#080c0c',
                 borderRadius: '2px'
             }}
