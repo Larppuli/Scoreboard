@@ -52,7 +52,7 @@ const NewGamePage = () => {
     
         try {
             const apiUrl = process.env.REACT_APP_API_URL;
-            const response = await fetch(`${apiUrl}/games`, {
+            const response = await fetch(`${apiUrl}/api/games`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
