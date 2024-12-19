@@ -41,7 +41,7 @@ const GamesView = ({ data }) => {
                     </TableHead>
                     
                     <TableBody>
-                        {data.map((game, index) => (
+                        {data.slice().reverse().map((game, index) => (
                             <TableRow
                                 key={index}
                                 sx={{
