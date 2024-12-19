@@ -65,11 +65,11 @@ const Navbar = () => {
                 />
                 <BottomNavigationAction
                     href="/games"
-                    icon={<ListIcon sx={{ color: currentPath === '/game' ? 'white' : '#969696' }} />}
+                    icon={<ListIcon sx={{ color: currentPath === '/games' ? 'white' : '#969696' }} />}
                     label="Games"
                     style={{
                         color: currentPath === '/games' ? 'white' : '#969696',
-                        background: currentPath === '/new-game' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                        background: currentPath === '/games' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
                         borderRadius: '5px'
                     }}
                 />
