@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import HomePage from './views/HomePage';
 import AchievementPage from './views/AchievementsPage';
 import NewGamePage from './views/NewGamePage';
+import GamesView from './views/GamesPage';
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -51,6 +52,7 @@ const App = () => {
         <Route path="/" element={<HomePage data={data} />} />
         <Route path="/achievements" element={<AchievementPage data={data} />} />
         <Route path="/new-game" element={<NewGamePage />} />
+        <Route path="/games" element={<GamesView data={data} />} />
       </Routes>
     </Router>
   );
