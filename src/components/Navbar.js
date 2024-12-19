@@ -6,6 +6,7 @@ import { BottomNavigationAction, BottomNavigation } from '@mui/material';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
 import { useLocation } from 'react-router';
+import ListIcon from '@mui/icons-material/List';
 
 const Navbar = () => {
     const location = useLocation();
@@ -31,37 +32,47 @@ const Navbar = () => {
                         background: 'inherit',
                     }}
                 >
-                    <BottomNavigationAction
-                        href="/"
-                        icon={<EqualizerIcon sx={{ color: currentPath === '/' ? 'white' : '#969696' }} />}
-                        label="Stats"
-                        style={{
-                            color: currentPath === '/' ? 'white' : '#969696',
-                            background: currentPath === '/' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
-                            borderRadius: '5px'
-                        }}
-                    />
+                <BottomNavigationAction
+                    href="/"
+                    icon={<EqualizerIcon sx={{ color: currentPath === '/' ? 'white' : '#969696' }} />}
+                    label="Stats"
+                    style={{
+                        color: currentPath === '/' ? 'white' : '#969696',
+                        background: currentPath === '/' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                        borderRadius: '5px'
+                    }}
+                />
 
-                    <BottomNavigationAction
-                        href="/achievements"
-                        icon={<EmojiEventsIcon sx={{ color: currentPath === '/achievements' ? 'white' : '#969696' }} />}
-                        label="Achievements"
-                        style={{
-                            color: currentPath === '/achievements' ? 'white' : '#969696',
-                            background: currentPath === '/achievements' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
-                            borderRadius: '5px'
-                        }}
-                    />
-                    <BottomNavigationAction
-                        href="/new-game"
-                        icon={<SportsKabaddiIcon sx={{ color: currentPath === '/new-game' ? 'white' : '#969696' }} />}
-                        label="New game"
-                        style={{
-                            color: currentPath === '/new-game' ? 'white' : '#969696',
-                            background: currentPath === '/new-game' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
-                            borderRadius: '5px'
-                        }}
-                    />
+                <BottomNavigationAction
+                    href="/achievements"
+                    icon={<EmojiEventsIcon sx={{ color: currentPath === '/achievements' ? 'white' : '#969696' }} />}
+                    label="Achievements"
+                    style={{
+                        color: currentPath === '/achievements' ? 'white' : '#969696',
+                        background: currentPath === '/achievements' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                        borderRadius: '5px'
+                    }}
+                />
+                <BottomNavigationAction
+                    href="/new-game"
+                    icon={<SportsKabaddiIcon sx={{ color: currentPath === '/new-game' ? 'white' : '#969696' }} />}
+                    label="New game"
+                    style={{
+                        color: currentPath === '/new-game' ? 'white' : '#969696',
+                        background: currentPath === '/new-game' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                        borderRadius: '5px'
+                    }}
+                />
+                <BottomNavigationAction
+                    href="/games"
+                    icon={<ListIcon sx={{ color: currentPath === '/game' ? 'white' : '#969696' }} />}
+                    label="Games"
+                    style={{
+                        color: currentPath === '/games' ? 'white' : '#969696',
+                        background: currentPath === '/new-game' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                        borderRadius: '5px'
+                    }}
+                />
                 </BottomNavigation>
             </Toolbar>
         </AppBar>
