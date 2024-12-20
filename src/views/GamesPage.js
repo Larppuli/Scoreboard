@@ -17,6 +17,8 @@ import {
     DialogTitle,
     keyframes
 } from '@mui/material';
+import MenuSelection from '../components/MenuSelection';
+import Datepicker from '../components/Datepicker';
 
 const fadeInUp = keyframes`
   0% {
@@ -29,29 +31,46 @@ const fadeInUp = keyframes`
   }
 `;
 
-const GamesView = ({ data }) => {
-    const [selectedId, setSelectedId] = useState(null);
-    const [dialogOpen, setDialogOpen] = useState(false);
+const GamesPage = ({
+    data,
+    selectedDate,
+    handleDateChange,
+    handleWinnerChange,
+    handleParticipantsChange,
+    handleSportChange,
+    selectedParticipants,
+    selectedSport,
+    selectedWinner,
+    setSelectedDate
+}) => {
+    const [selectedGame, setSelectedGame] = useState(null);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [games, setGames] = useState([])
 
     useEffect(() => {
-        if (data) {
+        if (data && Array.isArray(data)) {
             setGames(data);
         }
     }, [data]);
 
     const handleDeleteGame = () => {
-        console.log(selectedId)
-        if (selectedId) {
-            setDialogOpen(true);
+        if (selectedGame) {
+            setDeleteDialogOpen(true);
+        }
+    };
+
+    const handleEditGame = () => {
+        if (selectedGame) {
+            setEditDialogOpen(true);
         }
     };
 
     const handleConfirmDelete = async () => {
-        if (selectedId) {
+        if (selectedGame) {
             try {
                 const apiUrl = process.env.REACT_APP_API_URL;
-                const response = await fetch(`${apiUrl}/api/games?id=${selectedId}`, {
+                const response = await fetch(`${apiUrl}/api/games?id=${selectedGame.id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -59,22 +78,64 @@ const GamesView = ({ data }) => {
                 });
     
                 if (response.ok) {
-                    console.log(`Deleted game with ID: ${selectedId}`);
-                    setSelectedId(null);
-                    setDialogOpen(false);
-                    setGames(games => games.filter(game => game.id !== selectedId));
+                    setSelectedGame(null);
+                    setDeleteDialogOpen(false);
+                    setGames(games => games.filter(game => game.id !== selectedGame.id));
                 } else {
-                    console.error(`Failed to delete game with ID: ${selectedId}`);
+                    console.error(`Failed to delete game with ID: ${selectedGame.id}`);
                 }
             } catch (error) {
                 console.error(`Error deleting game: ${error}`);
             }
         }
     };
+
+    const handleConfirmEdit = async () => {
+        const updatedGame = {
+            date: selectedDate || selectedGame?.date,
+            participants: selectedParticipants?.length > 0 ? selectedParticipants : selectedGame?.participants,
+            sport: selectedSport || selectedGame?.sport,
+            winner: selectedWinner || selectedGame?.winner,
+        };
     
+        try {
+            const apiUrl = process.env.REACT_APP_API_URL;
+            const response = await fetch(`${apiUrl}/api/games?id=${selectedGame.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedGame),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to update the game');
+            }
+        
+            setGames((games) =>
+                games.map((game) =>
+                    game.id === selectedGame.id
+                        ? {
+                            ...game,
+                            ...updatedGame,
+                            date: selectedDate.format('DD.MM.YYYY'),
+                        }
+                        : game
+                )
+            );
+    
+            setEditDialogOpen(false);
+        } catch (error) {
+            console.error('Error updating the game:', error);
+        }
+    }; 
 
     const handleCancelDelete = () => {
-        setDialogOpen(false);
+        setDeleteDialogOpen(false);
+    };
+
+    const handleCancelEdit = () => {
+        setEditDialogOpen(false);
     };
 
     return (
@@ -117,7 +178,7 @@ const GamesView = ({ data }) => {
                                 <TableRow
                                     key={index}
                                     value={game}
-                                    onClick={() => setSelectedId(game.id)}
+                                    onClick={() => setSelectedGame(game)}
                                     sx={{
                                         '&:hover': {
                                             backgroundColor: '#3c3f3f',
@@ -125,7 +186,7 @@ const GamesView = ({ data }) => {
                                         },
                                         animation: `${fadeInUp} 0.3s ease-out`,
                                         cursor: 'pointer',
-                                        backgroundColor: selectedId === game.id ? '#3c3f3f' : 'inherit'
+                                        backgroundColor: selectedGame === game ? '#3c3f3f' : 'inherit'
                                     }}
                                 >
                                     <TableCell sx={{ padding: '13px', color: 'white' }} align="center">
@@ -148,34 +209,56 @@ const GamesView = ({ data }) => {
                     </Table>
                 </TableContainer>
             </Box>
-            <Button
-                variant="contained"
-                onClick={handleDeleteGame}
-                sx={{
-                    background: '#c84c4c',
-                    padding: '20px',
-                    marginTop: '20px',
-                    fontSize: '15px',
-                    fontFamily: '"Audiowide", sans-serif',
-                    '&.Mui-disabled': {
-                        borderColor: '#080c0c',
-                        color: '#080c0c'
-                    }
-                }}
-                disabled={!selectedId}
-            >
-                Delete Game
-            </Button>
-
+            <Stack direction='row' justifyContent='center'>
+                <Button
+                    variant="contained"
+                    onClick={handleEditGame}
+                    sx={{
+                        width: '170px',
+                        marginRight: '10px',
+                        background: '#3b66fb',
+                        padding: '20px',
+                        marginTop: '20px',
+                        fontSize: '15px',
+                        fontFamily: '"Audiowide", sans-serif',
+                        '&.Mui-disabled': {
+                            borderColor: '#080c0c',
+                            color: '#080c0c'
+                        }
+                    }}
+                    disabled={!selectedGame}
+                >
+                    Edit Game
+                </Button>
+                <Button
+                    variant="contained"
+                    onClick={handleDeleteGame}
+                    sx={{
+                        width: '170px',
+                        background: '#c84c4c',
+                        padding: '20px',
+                        marginTop: '20px',
+                        fontSize: '15px',
+                        fontFamily: '"Audiowide", sans-serif',
+                        '&.Mui-disabled': {
+                            borderColor: '#080c0c',
+                            color: '#080c0c'
+                        }
+                    }}
+                    disabled={!selectedGame}
+                >
+                    Delete Game
+                </Button>
+            </Stack>
             <Dialog
-                open={dialogOpen}
+                open={deleteDialogOpen}
                 onClose={handleCancelDelete}
-                aria-labelledby="confirmation-dialog-title"
-                aria-describedby="confirmation-dialog-description"
+                aria-labelledby="delete-confirmation-dialog-title"
+                aria-describedby="delete-confirmation-dialog-description"
             >
                 <DialogTitle id="confirmation-dialog-title">Confirm Deletion</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="confirmation-dialog-description">
+                    <DialogContentText id="delete-confirmation-dialog-description">
                         Are you sure you want to delete the selected game?
                     </DialogContentText>
                 </DialogContent>
@@ -188,8 +271,60 @@ const GamesView = ({ data }) => {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Dialog
+                open={editDialogOpen}
+                key={selectedGame?.id}
+                onClose={handleCancelDelete}
+                aria-labelledby="delete-confirmation-dialog-title"
+                aria-describedby="edit-confirmation-dialog-description"
+            >
+                <DialogTitle id="edtit-confirmation-dialog-title">Edit game</DialogTitle>
+                <DialogContent>
+                    <Stack direction="column" alignItems="center" marginTop='10px'>
+                        <Datepicker
+                            customSx={{ width: '257px' }}
+                            handleDateChange={handleDateChange}
+                            defaultDate={selectedGame?.date ? selectedGame.date ? selectedGame.date : null : null}
+                            setSelectedDate={setSelectedDate}
+                            selectedDate={selectedDate}
+                        />
+                        <MenuSelection
+                            selections={["Eero", "Janne", "Lauri", "Oskari"]}
+                            autoSelect={selectedGame?.participants}
+                            multi={true}
+                            label="Select Participants"
+                            onSelectionChange={handleParticipantsChange}
+                            customSx={{width: '257px'}}
+                        />
+                        <MenuSelection
+                            selections={selectedParticipants && selectedParticipants.length > 0 ? selectedParticipants : selectedGame?.participants}
+                            autoSelect={selectedWinner.length > 0 ?[selectedWinner] : [selectedGame?.winner]}
+                            multi={false}
+                            label="Select Winner"
+                            onSelectionChange={handleWinnerChange}
+                            customSx={{width: '257px'}}
+                        />
+                        <MenuSelection
+                            selections={["Snooker", "Petanque", "Darts"]}
+                            autoSelect={selectedSport.length > 0 ?[selectedSport] : [selectedGame?.sport]}
+                            multi={false}
+                            label="Select Winner"
+                            onSelectionChange={handleSportChange}
+                            customSx={{width: '257px'}}
+                        />
+                    </Stack>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCancelEdit} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleConfirmEdit} color="error" autoFocus>
+                        Save
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 };
 
-export default GamesView;
+export default GamesPage;
