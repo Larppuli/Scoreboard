@@ -1,17 +1,26 @@
 import React, { useState, useRef } from 'react';
 import { Typography, Stack, Box } from '@mui/material';
-import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import MenuSelection from '../components/MenuSelection';
 import Button from '@mui/material/Button';
 import { Grow } from '@mui/material';
 import Alert from '@mui/material/Alert';
+import Datepicker from '../components/Datepicker';
 
-const NewGamePage = () => {
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedParticipants, setSelectedParticipants] = useState([]);
-    const [selectedSport, setSelectedSport] = useState("");
-    const [selectedWinner, setSelectedWinner] = useState("");
+const NewGamePage = ({
+    selectedDate,
+    handleDateChange,
+    handleWinnerChange,
+    handleParticipantsChange,
+    handleSportChange,
+    selectedParticipants,
+    selectedSport,
+    selectedWinner,
+    setSelectedDate,
+    setSelectedParticipants,
+    setSelectedSport,
+    setSelectedWinner
+  }) => {
+
     const [showAlert, setShowAlert] = useState(false);
     const [alertText, setAlertText] = useState("");
     const [severity, setSeverity] = useState("");
@@ -20,27 +29,51 @@ const NewGamePage = () => {
     const sportRef = useRef(null);
     const winnerRef = useRef(null);
 
-    const handleDateChange = (newDate) => {
-        setSelectedDate(newDate);
-    };
-
-    const handleParticipantsChange = (event) => {
-        setSelectedParticipants(event);
-    };
-
-    const handleSportChange = (event) => {
-        setSelectedSport(event);
-    };
-
-    const handleWinnerChange = (event) => {
-        setSelectedWinner(event);
-    };
-
     const handleClearSelections = () => {
         participantsRef.current?.handleClearSelection();
         sportRef.current?.handleClearSelection();
         winnerRef.current?.handleClearSelection();
     };
+
+    const menuSelectionSx = {
+        '& .MuiInputLabel-root': {
+            color: 'white',
+        },
+        '& .MuiInputBase-root': {
+            color: 'white',
+        },
+        '& .MuiSvgIcon-root': {
+            color: 'white',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'white',
+            },
+        },
+        '& input::placeholder': {
+            color: 'white',
+        },
+        background: '#080c0c',
+        borderRadius: '3px',
+        color: 'white',
+    }
+
+    const customSxDatepicker = {
+        '& .MuiInputLabel-root': {
+            color: 'white',
+        },
+        '& .MuiInputBase-root': {
+            color: 'white',
+        },
+        '& .MuiSvgIcon-root': {
+            color: 'white',
+        },
+        '& input::placeholder': {
+            color: 'white',
+        },
+        background: '#080c0c',
+        borderRadius: '3px',
+    }
 
     const handleSave = async () => {
         const object = {
@@ -104,36 +137,15 @@ const NewGamePage = () => {
                     New Game
                 </Typography>
                 <Stack sx={{ marginTop: 4, direction: 'column', maxWidth: '500px', width: '70%' }}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                            label="Select Date"
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            format="DD.MM.YYYY"
-                            sx={{
-                                '& .MuiInputLabel-root': {
-                                    color: 'white',
-                                },
-                                '& .MuiInputBase-root': {
-                                    color: 'white',
-                                },
-                                '& .MuiSvgIcon-root': {
-                                    color: 'white',
-                                },
-                                '& input::placeholder': {
-                                    color: 'white',
-                                },
-                                background: '#080c0c',
-                                borderRadius: '3px',
-                            }}
-                        />
-                    </LocalizationProvider>
+                    <Datepicker handleDateChange={handleDateChange} selectedDate={selectedDate} customSx={customSxDatepicker} setSelectedDate={setSelectedDate}/>
                     <MenuSelection
                         ref={participantsRef}
                         selections={['Eero', 'Oskari', 'Janne', 'Lauri']}
                         multi={true}
                         label="Select Participants"
                         onSelectionChange={handleParticipantsChange}
+                        customSx={menuSelectionSx}
+                        color='white'
                     />
                     <MenuSelection
                         ref={sportRef}
@@ -141,6 +153,9 @@ const NewGamePage = () => {
                         multi={false}
                         label="Select Sport"
                         onSelectionChange={handleSportChange}
+                        customSx={menuSelectionSx}
+                        inputLabelSx={{ color: 'white' }}
+                        color='white'
                     />
                     <MenuSelection
                         ref={winnerRef}
@@ -148,6 +163,9 @@ const NewGamePage = () => {
                         multi={false}
                         label="Select Winner"
                         onSelectionChange={handleWinnerChange}
+                        customSx={menuSelectionSx}
+                        inputLabelSx={{ color: 'white' }}
+                        color='white'
                     />
                     <Button
                         onClick={handleSave}
