@@ -77,10 +77,10 @@ const NewGamePage = ({
 
     const handleSave = async () => {
         const object = {
-            date: selectedDate.format('YYYY-MM-DD'),
+            date: selectedDate ? selectedDate.utc().format('YYYY-MM-DD') : null,
             participants: selectedParticipants,
             sport: selectedSport,
-            winner: selectedWinner
+            winner: selectedWinner,
         };
     
         try {

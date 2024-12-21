@@ -92,7 +92,7 @@ const GamesPage = ({
 
     const handleConfirmEdit = async () => {
         const updatedGame = {
-            date: selectedDate || selectedGame?.date,
+            date: selectedDate ? selectedDate.utc().format('YYYY-MM-DD') : selectedGame?.date,
             participants: selectedParticipants?.length > 0 ? selectedParticipants : selectedGame?.participants,
             sport: selectedSport || selectedGame?.sport,
             winner: selectedWinner || selectedGame?.winner,
