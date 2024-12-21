@@ -160,17 +160,24 @@ const GamesPage = ({
                     padding: '7px',
                 }}
             >
-                <TableContainer sx={{ background: 'transparent' }}>
+                <TableContainer sx={{ background: 'transparent', marginTop: '2px' }}>
                     <Table>
                         <TableHead>
-                            <TableRow sx={{ backgroundColor: '#2c2f2f'}}>
+                            <TableRow
+                                sx={{
+                                    backgroundColor: '#2c2f2f',
+                                    borderRadius: '5px',
+                                    overflow: 'hidden',
+                                }}
+                            >
                                 <TableCell
                                     sx={{
                                         fontSize: 15,
                                         fontWeight: 'bold',
                                         color: '#cfcfcf',
                                         padding: '2px',
-                                        borderBottom: '1px solid #3c3f3f',
+                                        borderBottom: 'none',
+                                        borderTopLeftRadius: '5px',
                                     }}
                                     align="center"
                                 >
@@ -182,7 +189,7 @@ const GamesPage = ({
                                         fontWeight: 'bold',
                                         color: '#cfcfcf',
                                         padding: '2px',
-                                        borderBottom: '1px solid #3c3f3f',
+                                        borderBottom: 'none',
                                     }}
                                     align="center"
                                 >
@@ -194,7 +201,7 @@ const GamesPage = ({
                                         fontWeight: 'bold',
                                         color: '#cfcfcf',
                                         padding: '2px',
-                                        borderBottom: '1px solid #3c3f3f',
+                                        borderBottom: 'none',
                                     }}
                                     align="center"
                                 >
@@ -206,7 +213,8 @@ const GamesPage = ({
                                         fontWeight: 'bold',
                                         color: '#cfcfcf',
                                         padding: '7px',
-                                        borderBottom: '1px solid #3c3f3f',
+                                        borderBottom: 'none',
+                                        borderTopRightRadius: '5px',
                                     }}
                                     align="center"
                                 >
