@@ -41,7 +41,8 @@ const GamesPage = ({
     selectedParticipants,
     selectedSport,
     selectedWinner,
-    setSelectedDate
+    setSelectedDate,
+    setSelectedParticipants
 }) => {
     const [selectedGame, setSelectedGame] = useState(null);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -125,6 +126,7 @@ const GamesPage = ({
             );
     
             setEditDialogOpen(false);
+            setSelectedParticipants(null);
         } catch (error) {
             console.error('Error updating the game:', error);
         }
@@ -136,6 +138,7 @@ const GamesPage = ({
 
     const handleCancelEdit = () => {
         setEditDialogOpen(false);
+        setSelectedParticipants(null);
     };
 
     return (
