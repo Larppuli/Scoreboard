@@ -153,25 +153,63 @@ const GamesPage = ({
                 sx={{
                     marginTop: '40px',
                     overflowY: 'auto',
-                    height: '470px',
-                    backgroundColor: '#080c0c',
-                    borderRadius: '2px'
+                    height: '65vh',
+                    backgroundColor: '#1a1d1d',
+                    borderRadius: '8px',
+                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
+                    padding: '7px',
                 }}
             >
-                <TableContainer sx={{ background: '#080c0c' }}>
+                <TableContainer sx={{ background: 'transparent' }}>
                     <Table>
                         <TableHead>
-                            <TableRow>
-                                <TableCell sx={{ fontSize: 13, padding: '8px', fontWeight: 'bold', color: 'white' }} align="center">
+                            <TableRow sx={{ backgroundColor: '#2c2f2f'}}>
+                                <TableCell
+                                    sx={{
+                                        fontSize: 15,
+                                        fontWeight: 'bold',
+                                        color: '#cfcfcf',
+                                        padding: '2px',
+                                        borderBottom: '1px solid #3c3f3f',
+                                    }}
+                                    align="center"
+                                >
                                     Date
                                 </TableCell>
-                                <TableCell sx={{ fontSize: 13, padding: '8px', fontWeight: 'bold', color: 'white' }} align="center">
+                                <TableCell
+                                    sx={{
+                                        fontSize: 15,
+                                        fontWeight: 'bold',
+                                        color: '#cfcfcf',
+                                        padding: '2px',
+                                        borderBottom: '1px solid #3c3f3f',
+                                    }}
+                                    align="center"
+                                >
                                     Participants
                                 </TableCell>
-                                <TableCell sx={{ fontSize: 13, padding: '8px', fontWeight: 'bold', color: 'white' }} align="center">
+                                <TableCell
+                                    sx={{
+                                        fontSize: 15,
+                                        fontWeight: 'bold',
+                                        color: '#cfcfcf',
+                                        padding: '2px',
+                                        borderBottom: '1px solid #3c3f3f',
+                                    }}
+                                    align="center"
+                                >
                                     Sport
                                 </TableCell>
-                                <TableCell sx={{ fontSize: 13, padding: '8px', fontWeight: 'bold', color: 'white' }} align="center">
+                                <TableCell
+                                    sx={{
+                                        fontSize: 15,
+                                        fontWeight: 'bold',
+                                        color: '#cfcfcf',
+                                        padding: '7px',
+                                        borderBottom: '1px solid #3c3f3f',
+                                    }}
+                                    align="center"
+                                >
                                     Winner
                                 </TableCell>
                             </TableRow>
@@ -180,30 +218,56 @@ const GamesPage = ({
                             {games.slice().reverse().map((game, index) => (
                                 <TableRow
                                     key={index}
-                                    value={game}
                                     onClick={() => setSelectedGame(game)}
                                     sx={{
+                                        backgroundColor: index % 2 === 0 ? '#1a1d1d' : '#252828',
                                         '&:hover': {
-                                            backgroundColor: '#3c3f3f',
-                                            transition: 'background-color 0.3s ease'
+                                            backgroundColor: '#3c4f64',
+                                            transition: 'background-color 0.3s ease',
                                         },
-                                        animation: `${fadeInUp} 0.3s ease-out`,
                                         cursor: 'pointer',
-                                        backgroundColor: selectedGame === game ? '#3c3f3f' : 'inherit'
+                                        animation: `${fadeInUp} 0.3s ease-out`,
                                     }}
                                 >
-                                    <TableCell sx={{ padding: '13px', color: 'white' }} align="center">
+                                    <TableCell
+                                        sx={{
+                                            padding: '7px',
+                                            color: '#e8e8e8',
+                                            borderBottom: 'none',
+                                            borderRadius: '5px 0 0 5px',
+                                        }}
+                                        align="center"
+                                    >
                                         <Typography fontSize={13}>{game.date}</Typography>
                                     </TableCell>
-                                    <TableCell sx={{ color: 'white' }} align="center">
+                                    <TableCell
+                                        sx={{
+                                            color: '#e8e8e8',
+                                            borderBottom: 'none',
+                                        }}
+                                        align="center"
+                                    >
                                         <Typography fontSize={13}>
-                                            {game.participants.map(name => name.charAt(0)).join(', ')}
+                                            {game.participants.map((name) => name.charAt(0)).join(', ')}
                                         </Typography>
                                     </TableCell>
-                                    <TableCell sx={{ color: 'white' }} align="center">
+                                    <TableCell
+                                        sx={{
+                                            color: '#e8e8e8',
+                                            borderBottom: 'none',
+                                        }}
+                                        align="center"
+                                    >
                                         <Typography fontSize={13}>{game.sport}</Typography>
                                     </TableCell>
-                                    <TableCell sx={{ color: 'white' }} align="center">
+                                    <TableCell
+                                        sx={{
+                                            color: '#e8e8e8',
+                                            borderBottom: 'none',
+                                            borderRadius: '0 5px 5px 0',
+                                        }}
+                                        align="center"
+                                    >
                                         <Typography fontSize={13}>{game.winner}</Typography>
                                     </TableCell>
                                 </TableRow>
