@@ -15,7 +15,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-    keyframes
+    keyframes,
 } from '@mui/material';
 import MenuSelection from '../components/MenuSelection';
 import Datepicker from '../components/Datepicker';
@@ -228,9 +228,11 @@ const GamesPage = ({
                                     key={index}
                                     onClick={() => setSelectedGame(game)}
                                     sx={{
-                                        backgroundColor: index % 2 === 0 ? '#1a1d1d' : '#252828',
+                                        backgroundColor: selectedGame === game 
+                                            ? '#b0bcea'
+                                            : (index % 2 === 0 ? '#1a1d1d' : '#252828'),
                                         '&:hover': {
-                                            backgroundColor: '#3c4f64',
+                                            backgroundColor: selectedGame !== game ? '#313a46' : undefined,
                                             transition: 'background-color 0.3s ease',
                                         },
                                         cursor: 'pointer',
@@ -240,7 +242,7 @@ const GamesPage = ({
                                     <TableCell
                                         sx={{
                                             padding: '7px',
-                                            color: '#e8e8e8',
+                                            color: selectedGame === game ? 'black' : '#e8e8e8',
                                             borderBottom: 'none',
                                             borderRadius: '5px 0 0 5px',
                                         }}
@@ -250,7 +252,7 @@ const GamesPage = ({
                                     </TableCell>
                                     <TableCell
                                         sx={{
-                                            color: '#e8e8e8',
+                                            color: selectedGame === game ? 'black' : '#e8e8e8',
                                             borderBottom: 'none',
                                         }}
                                         align="center"
@@ -261,7 +263,7 @@ const GamesPage = ({
                                     </TableCell>
                                     <TableCell
                                         sx={{
-                                            color: '#e8e8e8',
+                                            color: selectedGame === game ? 'black' : '#e8e8e8',
                                             borderBottom: 'none',
                                         }}
                                         align="center"
@@ -270,7 +272,7 @@ const GamesPage = ({
                                     </TableCell>
                                     <TableCell
                                         sx={{
-                                            color: '#e8e8e8',
+                                            color: selectedGame === game ? 'black' : '#e8e8e8',
                                             borderBottom: 'none',
                                             borderRadius: '0 5px 5px 0',
                                         }}
