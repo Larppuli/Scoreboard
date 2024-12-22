@@ -383,7 +383,7 @@ const GamesPage = ({
                             selections={["Snooker", "Petanque", "Darts"]}
                             autoSelect={selectedSport.length > 0 ?[selectedSport] : [selectedGame?.sport]}
                             multi={false}
-                            label="Select Winner"
+                            label="Select Sport"
                             onSelectionChange={handleSportChange}
                             customSx={{width: '257px'}}
                         />
