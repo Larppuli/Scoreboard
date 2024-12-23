@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Typography, Stack, Box } from '@mui/material';
 import MenuSelection from '../components/MenuSelection';
 import Button from '@mui/material/Button';
@@ -24,10 +24,28 @@ const NewGamePage = ({
     const [showAlert, setShowAlert] = useState(false);
     const [alertText, setAlertText] = useState("");
     const [severity, setSeverity] = useState("");
+    const [disabled, setDisabled] = useState(true);
 
     const participantsRef = useRef(null);
     const sportRef = useRef(null);
     const winnerRef = useRef(null);
+
+    useEffect(() => {
+        const isDisabled = !(
+            selectedDate &&
+            selectedParticipants.length>1 &&
+            selectedSport &&
+            selectedWinner
+        );
+        setDisabled(isDisabled);
+    }, [selectedDate, selectedParticipants, selectedSport, selectedWinner]);
+
+    useEffect(() => {
+        if (!selectedParticipants.includes(selectedWinner)) {
+            setSelectedWinner(null);
+            winnerRef.current?.handleClearSelection();
+        }
+    }, [selectedParticipants, selectedWinner, setSelectedWinner]);
 
     const handleClearSelections = () => {
         participantsRef.current?.handleClearSelection();
@@ -137,7 +155,11 @@ const NewGamePage = ({
                     New Game
                 </Typography>
                 <Stack sx={{ marginTop: 4, direction: 'column', maxWidth: '500px', width: '70%' }}>
-                    <Datepicker handleDateChange={handleDateChange} selectedDate={selectedDate} customSx={customSxDatepicker} setSelectedDate={setSelectedDate}/>
+                    <Datepicker
+                        onSelectionChange={handleDateChange}
+                        selectedDate={selectedDate} 
+                        customSx={customSxDatepicker} 
+                        setSelectedDate={setSelectedDate}/>
                     <MenuSelection
                         ref={participantsRef}
                         selections={['Eero', 'Oskari', 'Janne', 'Lauri']}
@@ -168,9 +190,12 @@ const NewGamePage = ({
                         color='white'
                     />
                     <Button
-                        onClick={handleSave}
+                        onClick={() => {
+                            handleSave();
+                            setDisabled(true);
+                          }}
                         variant="contained"
-                        disabled={!(selectedDate && selectedParticipants.length && selectedSport && selectedWinner)}
+                        disabled={disabled}
                         sx={{ 
                             background: '#c84c4c', 
                             padding: '20px', 
