@@ -48,6 +48,8 @@ const GamesPage = ({
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [games, setGames] = useState([]);
+    const [deletedRow, setDeletedRow] = useState(null);
+    const [editedRow, setEditedRow] = useState(null);
 
     useEffect(() => {
         if (data && Array.isArray(data)) {
@@ -85,11 +87,16 @@ const GamesPage = ({
                         'Content-Type': 'application/json',
                     },
                 });
-    
+
                 if (response.ok) {
-                    setSelectedGame(null);
                     setDeleteDialogOpen(false);
-                    setGames(games => games.filter(game => game.id !== selectedGame.id));
+                    setDeletedRow(selectedGame.id);
+    
+                    setTimeout(() => {
+                        setGames((games) => games.filter((game) => game.id !== selectedGame.id));
+                        setSelectedGame(null);
+                        setDeletedRow(null);
+                    }, 1000);
                 } else {
                     console.error(`Failed to delete game with ID: ${selectedGame.id}`);
                 }
@@ -116,6 +123,12 @@ const GamesPage = ({
                 },
                 body: JSON.stringify(updatedGame),
             });
+
+            setEditedRow(selectedGame.id);
+            setTimeout(() => {
+                setSelectedGame(null);
+                setEditedRow(null);
+            }, 400);
     
             if (!response.ok) {
                 throw new Error('Failed to update the game');
@@ -236,10 +249,16 @@ const GamesPage = ({
                                     key={index}
                                     onClick={() => handleRowClick(game)}
                                     sx={{
-                                        backgroundColor: selectedGame === game 
+                                        backgroundColor: editedRow === game.id
+                                            ? '#b2f18c'
+                                            : deletedRow === game.id
+                                            ? '#ff7878'
+                                            : selectedGame === game
                                             ? '#b0bcea'
-                                            : (index % 2 === 0 ? '#1a1d1d' : '#252828'),
-                                            transition: 'background-color 0.3s ease',
+                                            : index % 2 === 0
+                                            ? '#1a1d1d'
+                                            : '#252828',
+                                        transition: 'background-color 0.5s ease',
                                         cursor: 'pointer',
                                         animation: `${fadeInUp} 0.3s ease-out`,
                                     }}
