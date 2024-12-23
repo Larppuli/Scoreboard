@@ -42,18 +42,26 @@ const GamesPage = ({
     selectedSport,
     selectedWinner,
     setSelectedDate,
-    setSelectedParticipants
+    setSelectedParticipants,
 }) => {
     const [selectedGame, setSelectedGame] = useState(null);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [editDialogOpen, setEditDialogOpen] = useState(false);
-    const [games, setGames] = useState([])
+    const [games, setGames] = useState([]);
 
     useEffect(() => {
         if (data && Array.isArray(data)) {
             setGames(data);
         }
     }, [data]);
+
+    const handleRowClick = (game) => {
+        if (game.id === selectedGame?.id) {
+            setSelectedGame(null);
+        } else {
+            setSelectedGame(game);
+        }
+    };
 
     const handleDeleteGame = () => {
         if (selectedGame) {
@@ -226,15 +234,12 @@ const GamesPage = ({
                             {games.slice().reverse().map((game, index) => (
                                 <TableRow
                                     key={index}
-                                    onClick={() => setSelectedGame(game)}
+                                    onClick={() => handleRowClick(game)}
                                     sx={{
                                         backgroundColor: selectedGame === game 
                                             ? '#b0bcea'
                                             : (index % 2 === 0 ? '#1a1d1d' : '#252828'),
-                                        '&:hover': {
-                                            backgroundColor: selectedGame !== game ? '#313a46' : undefined,
                                             transition: 'background-color 0.3s ease',
-                                        },
                                         cursor: 'pointer',
                                         animation: `${fadeInUp} 0.3s ease-out`,
                                     }}
@@ -374,19 +379,19 @@ const GamesPage = ({
                             customSx={{width: '257px'}}
                         />
                         <MenuSelection
-                            selections={selectedParticipants && selectedParticipants.length > 0 ? selectedParticipants : selectedGame?.participants}
-                            autoSelect={selectedWinner.length > 0 ?[selectedWinner] : [selectedGame?.winner]}
-                            multi={false}
-                            label="Select Winner"
-                            onSelectionChange={handleWinnerChange}
-                            customSx={{width: '257px'}}
-                        />
-                        <MenuSelection
                             selections={["Snooker", "Petanque", "Darts"]}
                             autoSelect={selectedSport.length > 0 ?[selectedSport] : [selectedGame?.sport]}
                             multi={false}
                             label="Select Sport"
                             onSelectionChange={handleSportChange}
+                            customSx={{width: '257px'}}
+                        />
+                        <MenuSelection
+                            selections={selectedParticipants && selectedParticipants.length > 0 ? selectedParticipants : selectedGame?.participants}
+                            autoSelect={selectedWinner.length > 0 ?[selectedWinner] : [selectedGame?.winner]}
+                            multi={false}
+                            label="Select Winner"
+                            onSelectionChange={handleWinnerChange}
                             customSx={{width: '257px'}}
                         />
                     </Stack>
