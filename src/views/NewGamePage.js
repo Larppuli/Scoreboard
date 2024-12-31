@@ -171,7 +171,7 @@ const NewGamePage = ({
                     />
                     <MenuSelection
                         ref={sportRef}
-                        selections={['Snooker', 'Petanque', 'Darts']}
+                        selections={['Snooker', 'Petanque', 'Darts', 'Card games']}
                         multi={false}
                         label="Select Sport"
                         onSelectionChange={handleSportChange}
