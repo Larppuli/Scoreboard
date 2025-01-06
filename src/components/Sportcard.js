@@ -10,9 +10,8 @@ const Sportcard = (sportData) => {
     const winPercentage = (player) => {
         const playerGames = games.filter((game) => game.participants.includes(player));
         const gamesWon = playerGames.filter((game) => game.winner === player).length;
-        return ((gamesWon / playerGames.length) * 100).toFixed(1);
+        return ((gamesWon / playerGames.length) * 100);
     };
-
     const bestWinPercentage = (players) => {
         let bestPlayer = null;
         let bestPercentage = 0;
@@ -60,7 +59,7 @@ const Sportcard = (sportData) => {
                 <Typography variant="body1">Games played: <b>{games.length}</b></Typography>
                 <Typography variant="body1">Most wins: <b>{mostWins.player}</b>, {mostWins.count} games</Typography>
                 <Typography variant="body1" sx={{ marginBottom: '10px' }}>
-                    Best winning percentage: <b>{bestWinPercentage(players).bestPlayer}</b>, {bestWinPercentage(players).bestPercentage}%
+                    Best winning percentage: <b>{bestWinPercentage(players).bestPlayer}</b>, {bestWinPercentage(players).bestPercentage.toFixed(1)}%
                 </Typography>
             </Paper>
         </Grow>
