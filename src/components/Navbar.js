@@ -20,7 +20,7 @@ const Navbar = () => {
                 backdropFilter: 'blur(5px)',
                 bottom: 0,
                 top: 'auto',
-                height: '70px',
+                height: '120px',
                 justifyContent: 'center',
             }}
         >
