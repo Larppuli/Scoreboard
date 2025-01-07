@@ -12,10 +12,10 @@ const AchievementPage = ({ data }) => {
                 </Typography>
             </Stack>
             <Stack paddingBottom={10} alignItems="center">
-                <Achievementcard  photoId={process.env.REACT_APP_OSKARI_ID} name='Oskari Valkama' games={data}/>
-                <Achievementcard  photoId={process.env.REACT_APP_JANNE_ID} name='Janne Peltokorpi' games={data}/>
-                <Achievementcard  photoId={process.env.REACT_APP_LAURI_ID} name='Lauri Talvitie' games={data}/>
-                <Achievementcard  photoId={process.env.REACT_APP_EERO_ID} name='Eero Reijonen' games={data}/>
+                <Achievementcard  name='Oskari Valkama' games={data}/>
+                <Achievementcard  name='Janne Peltokorpi' games={data}/>
+                <Achievementcard  name='Lauri Talvitie' games={data}/>
+                <Achievementcard  name='Eero Reijonen' games={data}/>
             </Stack>
         </Box>
     );

@@ -15,21 +15,9 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-    keyframes,
 } from '@mui/material';
 import MenuSelection from '../components/MenuSelection';
 import Datepicker from '../components/Datepicker';
-
-const fadeInUp = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
 
 const GamesPage = ({
     data,
@@ -258,9 +246,7 @@ const GamesPage = ({
                                             : index % 2 === 0
                                             ? '#1a1d1d'
                                             : '#252828',
-                                        transition: 'background-color 0.5s ease',
                                         cursor: 'pointer',
-                                        animation: `${fadeInUp} 0.3s ease-out`,
                                     }}
                                 >
                                     <TableCell

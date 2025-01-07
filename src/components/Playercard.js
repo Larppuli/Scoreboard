@@ -113,7 +113,7 @@ const Playercard = ({ photoId, name, games }) => {
                 <Stack spacing={2}>
                     <Stack direction="row">
                         <img
-                            src={`https://drive.google.com/thumbnail?id=${photoId}`}
+                            src={`/images/${name.split(' ')[0]}.jpg`}
                             alt="Player Thumbnail"
                             style={{
                                 borderRadius: '6%',
