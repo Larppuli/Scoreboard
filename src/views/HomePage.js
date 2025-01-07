@@ -19,8 +19,8 @@ const HomePage = ({ data }) => {
       };
 
     return (
-      <Box sx={{ paddingBottom: '80px' }} align='center'>
-          <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
+      <Box sx={{ paddingBottom: '120px' }} align='center'>
+          <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
             <img src="/images/FlashscoreLogo.png" alt="Logo" style={{ width: '50px', height: 'auto' }} />
             <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '35px' }} color='white'>
               POIKAINSCORE

@@ -145,7 +145,7 @@ const NewGamePage = ({
     return (
         <Box align="center">
             <Stack direction="column" alignItems="center">
-                <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
+                <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
                     <img src="/images/FlashscoreLogo.png" alt="Logo" style={{ width: '50px', height: 'auto' }} />
                     <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '35px' }} color="white">
                         POIKAINSCORE
