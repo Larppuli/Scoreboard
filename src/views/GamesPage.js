@@ -407,7 +407,7 @@ const GamesPage = ({
                         />
                         <MenuSelection
                             selections={selectedParticipants && selectedParticipants.length > 0 ? selectedParticipants : selectedGame?.participants}
-                            autoSelect={selectedWinner.length > 0 ?[selectedWinner] : [selectedGame?.winner]}
+                            autoSelect={selectedWinner?.length > 0 ?[selectedWinner] : [selectedGame?.winner]}
                             multi={false}
                             label="Select Winner"
                             onSelectionChange={handleWinnerChange}
