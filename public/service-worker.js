@@ -13,6 +13,10 @@ const urlsToCache = [
     '/images/insignia_Legend.png',
     '/images/insignia_Newbie.png',
     '/images/insignia_Rookie.png',
+    '/images/Janne.jpg',
+    '/images/Oskari.jpg',
+    '/images/Lauri.jpg',
+    '/images/Eero.jpg'
   ];
 
   self.addEventListener('install', (event) => {
