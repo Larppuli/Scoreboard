@@ -161,7 +161,7 @@ const Achievementcard = ({ photoId, name, games }) => {
                                     style={{ height: '60px' }}
                                 />
                                 <img
-                                    src={`https://drive.google.com/thumbnail?id=${photoId}`}
+                                    src={`/images/${name.split(' ')[0]}.jpg`}
                                     alt="Player Thumbnail"
                                     style={{
                                         borderRadius: '6%',
