@@ -30,6 +30,7 @@ const Navbar = () => {
                     sx={{
                         width: '100%',
                         background: 'inherit',
+                        marginBottom: '8px'
                     }}
                 >
                 <BottomNavigationAction
