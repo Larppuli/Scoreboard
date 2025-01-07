@@ -1,6 +1,6 @@
 {
-    "short_name": "Scoreboard",
-    "name": "Scoreboard PWA",
+    "short_name": "Poikainscore",
+    "name": "Pokainscore PWA",
     "description": "Track and store game stats with ease. View scores, player stats, and rankings.",
     "start_url": "/",
     "display": "standalone",
