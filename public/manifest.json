@@ -8,13 +8,13 @@
     "theme_color": "#3f51b5",
     "icons": [
   {
-    "src": "/images/icon-180x180.png",
+    "src": "/images/FlashscoreLogo.png"
     "sizes": "180x180",
     "type": "image/png",
     "purpose": "maskable any"
   },
   {
-    "src": "/images/icon-512x512.png",
+    "src": "/images/FlashscoreLogo.png",
     "sizes": "512x512",
     "type": "image/png",
     "purpose": "maskable any"
