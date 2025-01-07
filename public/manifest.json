@@ -8,16 +8,35 @@
     "theme_color": "#3f51b5",
     "icons": [
         {
-            "src": "/images/FlashscoreLogo.png",
+            "src": "/images/FlashscoreLogo-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/images/FlashscoreLogo-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/images/FlashscoreLogo-180x180.png",
             "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/images/FlashscoreLogo-256x256.png",
+            "sizes": "256x256",
             "type": "image/png",
             "purpose": "maskable any"
         },
         {
-            "src": "/images/FlashscoreLogo.png",
-            "sizes": "512x512",
+            "src": "/images/FlashscoreLogo-72x72.png",
+            "sizes": "72x72",
             "type": "image/png",
-            "purpose": "maskable any"
+            "purpose": "maskable"
         }
-    ]
-}  
+    ],
+    "orientation": "portrait-primary"
+}
