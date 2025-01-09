@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import MenuSelection from '../components/MenuSelection';
+import Datepicker from '../components/Datepicker';
+import { useQueryClient } from '@tanstack/react-query';
 import {
     Stack,
     Table,
@@ -16,8 +19,6 @@ import {
     DialogContentText,
     DialogTitle,
 } from '@mui/material';
-import MenuSelection from '../components/MenuSelection';
-import Datepicker from '../components/Datepicker';
 
 const GamesPage = ({
     data,
@@ -38,6 +39,8 @@ const GamesPage = ({
     const [games, setGames] = useState([]);
     const [deletedRow, setDeletedRow] = useState(null);
     const [editedRow, setEditedRow] = useState(null);
+
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         if (data && Array.isArray(data)) {
@@ -75,11 +78,13 @@ const GamesPage = ({
                         'Content-Type': 'application/json',
                     },
                 });
-
+    
                 if (response.ok) {
+                    queryClient.setQueryData(['games'], (oldGames) =>
+                        oldGames ? oldGames.filter((game) => game.id !== selectedGame.id) : []
+                    );
                     setDeleteDialogOpen(false);
                     setDeletedRow(selectedGame.id);
-    
                     setTimeout(() => {
                         setGames((games) => games.filter((game) => game.id !== selectedGame.id));
                         setSelectedGame(null);
@@ -93,6 +98,7 @@ const GamesPage = ({
             }
         }
     };
+    
 
     const handleConfirmEdit = async () => {
         const updatedGame = {
