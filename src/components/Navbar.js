@@ -29,54 +29,61 @@ const Navbar = () => {
                     sx={{
                         width: '100%',
                         background: 'inherit',
-                        marginBottom: '8px'
                     }}
                 >
                     <BottomNavigationAction
                         component={Link}
                         to="/"
-                        icon={<EqualizerIcon sx={{ color: currentPath === '/' ? 'white' : '#969696' }} />}
+                        icon={<EqualizerIcon sx={{ color: currentPath === '/' ? '#528afc' : '#969696' }} />}
                         label="Stats"
                         style={{
-                            color: currentPath === '/' ? 'white' : '#969696',
-                            background: currentPath === '/' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                            color: currentPath === '/' ? '#528afc' : '#969696',
+                            background: 'inherit',
                             borderRadius: '5px',
+                            height: '90px',
+                            paddingBottom: '30px'
                         }}
                     />
 
                     <BottomNavigationAction
                         component={Link}
                         to="/achievements"
-                        icon={<EmojiEventsIcon sx={{ color: currentPath === '/achievements' ? 'white' : '#969696' }} />}
+                        icon={<EmojiEventsIcon sx={{ color: currentPath === '/achievements' ? '#528afc' : '#969696' }} />}
                         label="Achievements"
                         style={{
-                            color: currentPath === '/achievements' ? 'white' : '#969696',
-                            background: currentPath === '/achievements' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                            color: currentPath === '/achievements' ? '#528afc' : '#969696',
+                            background: 'inherit',
                             borderRadius: '5px',
+                            height: '90px',
+                            paddingBottom: '30px'
                         }}
                     />
 
                     <BottomNavigationAction
                         component={Link}
                         to="/new-game"
-                        icon={<SportsKabaddiIcon sx={{ color: currentPath === '/new-game' ? 'white' : '#969696' }} />}
+                        icon={<SportsKabaddiIcon sx={{ color: currentPath === '/new-game' ? '#528afc' : '#969696' }} />}
                         label="New Game"
                         style={{
-                            color: currentPath === '/new-game' ? 'white' : '#969696',
-                            background: currentPath === '/new-game' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                            color: currentPath === '/new-game' ? '#528afc' : '#969696',
+                            background: 'inherit',
                             borderRadius: '5px',
+                            height: '90px',
+                            paddingBottom: '30px'
                         }}
                     />
 
                     <BottomNavigationAction
                         component={Link}
                         to="/games"
-                        icon={<ListIcon sx={{ color: currentPath === '/games' ? 'white' : '#969696' }} />}
+                        icon={<ListIcon sx={{ color: currentPath === '/games' ? '528afc' : '#969696' }} />}
                         label="Games"
                         style={{
-                            color: currentPath === '/games' ? 'white' : '#969696',
-                            background: currentPath === '/games' ? 'rgba(40, 40, 40, 0.3)' : 'inherit',
+                            color: currentPath === '/games' ? '#528afc' : '#c3c3c3',
+                            background: 'inherit',
                             borderRadius: '5px',
+                            height: '90px',
+                            paddingBottom: '30px'
                         }}
                     />
                 </BottomNavigation>

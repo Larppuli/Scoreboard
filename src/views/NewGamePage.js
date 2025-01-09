@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import { Grow } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Datepicker from '../components/Datepicker';
+import dayjs from 'dayjs';
+import { useQueryClient } from '@tanstack/react-query';
 
 const NewGamePage = ({
     selectedDate,
@@ -18,13 +20,15 @@ const NewGamePage = ({
     setSelectedDate,
     setSelectedParticipants,
     setSelectedSport,
-    setSelectedWinner
+    setSelectedWinner,
   }) => {
 
     const [showAlert, setShowAlert] = useState(false);
     const [alertText, setAlertText] = useState("");
     const [severity, setSeverity] = useState("");
     const [disabled, setDisabled] = useState(true);
+
+    const queryClient = useQueryClient();
 
     const participantsRef = useRef(null);
     const sportRef = useRef(null);
@@ -112,6 +116,13 @@ const NewGamePage = ({
             });
     
             if (response.ok) {
+                queryClient.setQueryData(['games'], (oldData = []) => [
+                    ...oldData,
+                    {
+                      ...object,
+                      date: object.date ? dayjs(object.date).format('DD.MM.YYYY') : null,
+                    },
+                  ]);
                 setSelectedDate(null);
                 setSelectedParticipants([]);
                 setSelectedSport('');
