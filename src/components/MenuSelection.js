@@ -57,7 +57,7 @@ const MenuSelection = forwardRef(
                         }
                         sx={customSx}
                     >
-                        {selections.map((item, index) => (
+                        {selections?.map((item, index) => (
                             <MenuItem key={index} value={item}>
                                 <Checkbox checked={selectedItems.includes(item)} />
                                 <ListItemText primary={item} />
