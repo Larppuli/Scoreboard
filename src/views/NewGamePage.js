@@ -33,11 +33,12 @@ const NewGamePage = ({
     const participantsRef = useRef(null);
     const sportRef = useRef(null);
     const winnerRef = useRef(null);
+    const dateRef = useRef(null);
 
     useEffect(() => {
         const isDisabled = !(
             selectedDate &&
-            selectedParticipants.length>1 &&
+            selectedParticipants?.length>1 &&
             selectedSport &&
             selectedWinner
         );
@@ -45,7 +46,7 @@ const NewGamePage = ({
     }, [selectedDate, selectedParticipants, selectedSport, selectedWinner]);
 
     useEffect(() => {
-        if (!selectedParticipants.includes(selectedWinner)) {
+        if (!selectedParticipants?.includes(selectedWinner)) {
             setSelectedWinner(null);
             winnerRef.current?.handleClearSelection();
         }
@@ -55,6 +56,7 @@ const NewGamePage = ({
         participantsRef.current?.handleClearSelection();
         sportRef.current?.handleClearSelection();
         winnerRef.current?.handleClearSelection();
+        dateRef.current?.handleClearSelection();
     };
 
     const menuSelectionSx = {
@@ -167,6 +169,7 @@ const NewGamePage = ({
                 </Typography>
                 <Stack sx={{ marginTop: 4, direction: 'column', maxWidth: '500px', width: '70%' }}>
                     <Datepicker
+                        ref={dateRef}
                         onSelectionChange={handleDateChange}
                         selectedDate={selectedDate} 
                         customSx={customSxDatepicker} 
