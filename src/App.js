@@ -43,7 +43,17 @@ const App = () => {
         winner: row.winner,
         participants: row.participants,
         sport: row.sport,
-      }));
+      }))
+      .sort((a, b) => {
+        const dateA = new Date(a.date.split('.').reverse().join('-'));
+        const dateB = new Date(b.date.split('.').reverse().join('-'));
+
+        if (dateA.getTime() === dateB.getTime()) {
+          return a.id - b.id;
+        }
+
+        return dateA - dateB;
+      });
       return games;
     } catch (error) {
       console.error('Error fetching data:', error);
