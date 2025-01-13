@@ -50,7 +50,6 @@ const Playercard = ({ name, games }) => {
                 data: marketValueDevelopment,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 fill: false,
-                tension: 0.4,
             },
         ],
     };
