@@ -6,7 +6,7 @@ import Achievement from './Achievement';
 import NumAnimation from './NumAnimation';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const Achievementcard = ({ photoId, name, games }) => {
+const Achievementcard = ({ name, games }) => {
     const [expanded, setExpanded] = useState(false);
     const firstName = name.split(' ')[0];
     const participationCount = games.filter(match => match.participants.includes(firstName)).length;
@@ -82,12 +82,38 @@ const Achievementcard = ({ photoId, name, games }) => {
         return petanquesWon;
     };
 
+    const cardGameWins = () => {
+        let cardGamesWon = 0;
+        
+        games.forEach((game) => {
+            if (game.winner === firstName && game.sport === 'Card games') {
+                cardGamesWon += 1;
+            }
+        });
+
+        return cardGamesWon;
+    };
+
+    const footballWins = () => {
+        let footballsWon = 0;
+        
+        games.forEach((game) => {
+            if (game.winner === firstName && game.sport === 'Football') {
+                footballsWon += 1;
+            }
+        });
+
+        return footballsWon;
+    };
+
     const achievements = [
         { achievement: ['Play 20 games', 'Play 40 games', 'Play 100 games', 'Play 150 games'], unlocked: [participationCount >= 20, participationCount >= 40, participationCount >= 100, participationCount >= 150], name: "Game Enthusiast" },
         { achievement: ['Win 10 games', 'Win 20 games', 'Win 40 games', 'Win 60 games'], unlocked: [gamesWon >= 10, gamesWon >= 20, gamesWon >= 40, gamesWon >= 60], name: "Champion's Path" },
         { achievement: ['Win 3 games in a row', 'Win 4 games in a row', 'Win 6 games in a row', 'Win 7 games in a row'], unlocked: [winStreak() >= 3, winStreak() >= 4, winStreak() >= 6, winStreak() >= 7], name: "Streak Conqueror" },
         { achievement: ['Win 5 snooker games', 'Win 10 snooker games', 'Win 20 snooker games', 'Win 40 snooker games'], unlocked: [snookerWins() >= 5, snookerWins() >= 10, snookerWins() >= 20, snookerWins() >= 40], name: "Snooker Specialist" },
-        { achievement: ['Win 5 petanque games', 'Win 10  petanque games', 'Win 20  petanque games', 'Win 40  petanque games'], unlocked: [petanqueWins() >= 5, petanqueWins() >= 10, petanqueWins() >= 20, petanqueWins() >= 40], name: "Petanque Mastery" },
+        { achievement: ['Win 5 petanque games', 'Win 10 petanque games', 'Win 20 petanque games', 'Win 40 petanque games'], unlocked: [petanqueWins() >= 5, petanqueWins() >= 10, petanqueWins() >= 20, petanqueWins() >= 40], name: "Petanque Mastery" },
+        { achievement: ['Win 5 card games', 'Win 10 card games', 'Win 20 card games', 'Win 40 card games'], unlocked: [cardGameWins() >= 5, cardGameWins() >= 10, cardGameWins() >= 20, cardGameWins() >= 40], name: "Card Game Maestro" },
+        { achievement: ['Win 5 football games', 'Win 10 football games', 'Win 20 football games', 'Win 40 football games'], unlocked: [footballWins() >= 5, footballWins() >= 10, footballWins() >= 20, footballWins() >= 40], name: "Football Superstar" },
         { achievement: ['Play 1 vs 1 against everyone'], unlocked: [hasPlayedAgainstEveryone()], name: "Ultimate Competitor" },
         { achievement: ['Play on every day of the week'], unlocked: [hasPlayedEveryDay()], name: "Weekly Warrior" },
     ];
