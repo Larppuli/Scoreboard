@@ -3,7 +3,7 @@ import { Stack } from '@mui/material';
 import Formbox from './Formbox';
 
 const Form = ({ games, player }) => {
-  const [lastFourGames, setLastFourGames] = useState([]);
+  const [lastFourGames, setLastFourGames] = useState([{}, {}, {}, {}]);
 
   useEffect(() => {
     const slicedGames = games.slice(-4).reverse();
