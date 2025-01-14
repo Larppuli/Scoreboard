@@ -1,22 +1,9 @@
 import React from 'react';
 import Leaguetable from '../components/Leaguetable';
 import { Typography, Stack, Box } from '@mui/material';
-import Sportcard from '../components/Sportcard';
-import { v4 as uuidv4 } from 'uuid';
 import Playercard from '../components/Playercard';
 
 const HomePage = ({ data }) => {
-
-    const groupBySport = () => {
-        const grouped = {};
-        data.forEach(game => {
-          if (!grouped[game.sport]) {
-            grouped[game.sport] = [];
-          }
-          grouped[game.sport].push(game);
-        });
-        return grouped;
-      };
 
     return (
       <Box sx={{ paddingBottom: '120px' }} align='center'>
@@ -31,9 +18,6 @@ const HomePage = ({ data }) => {
           <Playercard name='Janne Peltokorpi' games={data} />
           <Playercard name='Lauri Talvitie' games={data} />
           <Playercard name='Eero Reijonen' games={data} />
-          {Object.entries(groupBySport()).map((sportData) => {
-            return <Sportcard sportData={sportData} key={uuidv4()} />;
-          })}
       </Box>
     );
 };
