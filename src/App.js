@@ -66,12 +66,20 @@ const App = () => {
   }, queryClient);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setSplashScreenVisible(false);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
+    const queryCache = queryClient.getQueryCache();
+  
+    // Subscribe to cache updates
+    const unsubscribe = queryCache.subscribe(() => {
+      const queries = queryCache.findAll();
+      if (queries[0]?.state?.data) {
+        setSplashScreenVisible(false);
+      }
+    });
+  
+    // Cleanup subscription when the component unmounts
+    return () => unsubscribe();
   }, []);
+  
 
   if (splashScreenVisible) {
     if (window.innerWidth <= 768) {
