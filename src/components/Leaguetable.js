@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,8 +10,9 @@ import Form from './Form';
 import { Stack } from '@mui/material';
 import PositionBox from './Positionbox';
 import NumAnimation from './NumAnimation';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const Leaguetable = ({ games }) => {
   const players = ['Oskari', 'Janne', 'Eero', 'Lauri'];
@@ -19,9 +20,23 @@ const Leaguetable = ({ games }) => {
   const [sortColumn, setSortColumn] = useState('winPercentage');
   const [sortDirection, setSortDirection] = useState('desc');
   const [selectedColumn, setSelectedColumn] = useState('winPercentage');
+  const [sport, setSport] = useState('All sports');
+  const [sortedGames, setSortedGames] = useState(games);
+
+  const handleChange = (event) => {
+    setSport(event.target.value);
+  };
+
+  useEffect(() => {
+    if (sport !== 'All sports') {
+      setSortedGames(games.filter((game) => game.sport === sport));
+    } else {
+      setSortedGames(games);
+    }
+  }, [sport, games]);
 
   const calculateStats = (player) => {
-    const playerGames = games.filter((game) => game.participants.includes(player));
+    const playerGames = sortedGames.filter((game) => game.participants.includes(player));
     const gamesWon = playerGames.filter((game) => game.winner === player).length;
     const gamesPlayed = playerGames.length;
     const gamesLost = gamesPlayed - gamesWon;
@@ -51,40 +66,58 @@ const Leaguetable = ({ games }) => {
       <Table sx={{ background: '#080c0c', border: '3px solid #080c0c' }}>
         <TableHead>
           <TableRow>
-            <TableCell
-              sx={{
-                color: 'white',
-                padding: '4px',
-                paddingLeft: '24px',
-                background: 'inherit',
-              }}
-            >
-              PLAYER
+            <TableCell sx={{ paddingLeft: '1px', paddingBottom: '4px', paddingTop: '1px' }}>
+              <FormControl
+                sx={{
+                  width: 90,
+                  backgroundColor: '#383535',
+                  borderRadius: 1.1,
+                  '& .MuiInputBase-input': {
+                    color: 'white',
+                    fontSize: 9,
+                    whiteSpace: 'nowrap',
+                    overflow: 'visible',
+                    marginLeft: -1.2,
+                    marginBlock: -1,
+                    textAlign: 'center',
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    border: '1px solid inherit',
+                    '&:hover': {
+                      borderColor: '#888',
+                    },
+                  },
+                }}
+                size="small"
+              >
+                <Select value={sport} onChange={handleChange} displayEmpty inputProps={{ 'aria-label': 'Without label' }}>
+                  <MenuItem sx={{ fontSize: 15 }} value={'All sports'}>All sports</MenuItem>
+                  <MenuItem sx={{ fontSize: 15 }} value={'Snooker'}>Snooker</MenuItem>
+                  <MenuItem sx={{ fontSize: 15 }} value={'Petanque'}>Petanque</MenuItem>
+                  <MenuItem sx={{ fontSize: 15 }} value={'Darts'}>Darts</MenuItem>
+                  <MenuItem sx={{ fontSize: 15 }} value={'Card games'}>Card games</MenuItem>
+                  <MenuItem sx={{ fontSize: 15 }} value={'Football'}>Football</MenuItem>
+                </Select>
+              </FormControl>
             </TableCell>
             {['gamesPlayed', 'gamesWon', 'gamesLost', 'winPercentage'].map((col, index) => (
-            <TableCell
-              key={col}
-              sx={{
-                color: 'white',
-                padding: '4px',
-                fontWeight: selectedColumn === col ? 'bold' : 400,
-                cursor: 'pointer',
-                background: selectedColumn === col ? '#202424' : 'inherit',
-              }}
-              align="center"
-              onClick={() => handleHeaderClick(col)}
-            >
-              {['MP', 'W', 'L', 'W%'][index]}
-              {selectedColumn === col && (
-                sortDirection === 'asc' ? <ArrowUpwardIcon sx={{ fontSize: 10, marginBottom: 0.06 }} /> : <ArrowDownwardIcon sx={{ fontSize: 10, marginBottom: -0.06 }} />
-              )}
-            </TableCell>
-          ))}
-
-            <TableCell
-              sx={{ color: 'white', padding: '4px', paddingRight: '38px' }}
-              align="right"
-            >
+              <TableCell
+                key={col}
+                sx={{
+                  color: 'white',
+                  padding: '4px',
+                  marginLeft: 0,
+                  fontWeight: selectedColumn === col ? 'bold' : 400,
+                  cursor: 'pointer',
+                  background: selectedColumn === col ? '#202424' : 'inherit',
+                }}
+                align="center"
+                onClick={() => handleHeaderClick(col)}
+              >
+                {['MP', 'W', 'L', 'W%'][index]}
+              </TableCell>
+            ))}
+            <TableCell sx={{ color: 'white', padding: '4px', paddingRight: '38px' }} align="right">
               FORM
             </TableCell>
           </TableRow>
@@ -94,60 +127,22 @@ const Leaguetable = ({ games }) => {
             const { playerGames, gamesPlayed, gamesWon, gamesLost, winPercentage } = calculateStats(player);
             return (
               <TableRow key={player} sx={{ height: '36px' }}>
-                <TableCell
-                  sx={{
-                    color: 'white',
-                    padding: '4px',
-                    background: selectedColumn === 'player' ? '#202424' : 'inherit',
-                  }}
-                >
+                <TableCell sx={{ color: 'white', padding: '4px' }}>
                   <Stack direction="row">
                     <PositionBox position={index + 1} />
                     {player}
                   </Stack>
                 </TableCell>
-                <TableCell
-                  sx={{
-                    color: 'white',
-                    padding: '4px',
-                    width: '12%',
-                    background: selectedColumn === 'gamesPlayed' ? '#202424' : 'inherit',
-                  }}
-                  align="center"
-                >
+                <TableCell sx={{ color: 'white', padding: '4px', width: '12%' }} align="center">
                   <NumAnimation targetNumber={gamesPlayed} fixedNum={0} />
                 </TableCell>
-                <TableCell
-                  sx={{
-                    color: 'white',
-                    padding: '4px',
-                    width: '9%',
-                    background: selectedColumn === 'gamesWon' ? '#202424' : 'inherit',
-                  }}
-                  align="center"
-                >
+                <TableCell sx={{ color: 'white', padding: '4px', width: '9%' }} align="center">
                   <NumAnimation targetNumber={gamesWon} fixedNum={0} />
                 </TableCell>
-                <TableCell
-                  sx={{
-                    color: 'white',
-                    padding: '4px',
-                    width: '9%',
-                    background: selectedColumn === 'gamesLost' ? '#202424' : 'inherit',
-                  }}
-                  align="center"
-                >
+                <TableCell sx={{ color: 'white', padding: '4px', width: '9%' }} align="center">
                   <NumAnimation targetNumber={gamesLost} fixedNum={0} />
                 </TableCell>
-                <TableCell
-                  sx={{
-                    color: 'white',
-                    padding: '4px',
-                    width: '15%',
-                    background: selectedColumn === 'winPercentage' ? '#202424' : 'inherit',
-                  }}
-                  align="center"
-                >
+                <TableCell sx={{ color: 'white', padding: '4px', width: '15%' }} align="center">
                   <NumAnimation targetNumber={winPercentage} fixedNum={1} />%
                 </TableCell>
                 <TableCell sx={{ padding: '4px' }}>
