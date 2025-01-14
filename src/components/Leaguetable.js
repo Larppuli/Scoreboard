@@ -107,8 +107,8 @@ const Leaguetable = ({ games }) => {
                   color: 'white',
                   padding: '4px',
                   marginLeft: 0,
-                  width: '7%',
-                  paddingInline: (col === 'winPercentage' ? '20px' : '0px'),
+                  width: col === 'winPercentage' ? '18%' : '7%',
+                  paddingInline: col === 'winPercentage' ? '20px' : '0px',
                   fontWeight: selectedColumn === col ? 'bold' : 400,
                   cursor: 'pointer',
                   background: selectedColumn === col ? '#202424' : 'inherit',
@@ -135,16 +135,16 @@ const Leaguetable = ({ games }) => {
                     {player}
                   </Stack>
                 </TableCell>
-                <TableCell sx={{  color: 'white', padding: '4px', width: '13%', background: selectedColumn === 'gamesPlayed' ? '#202424' : 'inherit', }} align="center">
+                <TableCell sx={{  color: 'white', padding: '4px', background: selectedColumn === 'gamesPlayed' ? '#202424' : 'inherit', }} align="center">
                   <NumAnimation targetNumber={gamesPlayed} fixedNum={0} />
                 </TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px', width: '13%', background: selectedColumn === 'gamesWon' ? '#202424' : 'inherit' }} align="center">
+                <TableCell sx={{ color: 'white', padding: '4px', background: selectedColumn === 'gamesWon' ? '#202424' : 'inherit' }} align="center">
                   <NumAnimation targetNumber={gamesWon} fixedNum={0} />
                 </TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px', width: '13%', background: selectedColumn === 'gamesLost' ? '#202424' : 'inherit' }} align="center">
+                <TableCell sx={{ color: 'white', padding: '4px', background: selectedColumn === 'gamesLost' ? '#202424' : 'inherit' }} align="center">
                   <NumAnimation targetNumber={gamesLost} fixedNum={0} />
                 </TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px', width: '15%', background: selectedColumn === 'winPercentage' ? '#202424' : 'inherit' }} align="center">
+                <TableCell sx={{ color: 'white', padding: '4px', background: selectedColumn === 'winPercentage' ? '#202424' : 'inherit' }} align="center">
                   <NumAnimation targetNumber={winPercentage} fixedNum={1} />%
                 </TableCell>
                 <TableCell sx={{ padding: '4px' }}>
