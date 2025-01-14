@@ -3,18 +3,17 @@ import { Stack } from '@mui/material';
 import Formbox from './Formbox';
 
 const Form = ({ games, player }) => {
-  const [lastFourGames, setLastFourGames] = useState([{},{},{},{}])
+  const [lastFourGames, setLastFourGames] = useState([]);
+
   useEffect(() => {
-    if (games.length > 0) {
-      const slicedGames = games.slice(-4).reverse();
-      const emptySlots = 4 - slicedGames.length;
-      const updatedGames = [...slicedGames, ...Array(Math.max(emptySlots, 0)).fill({})];
-      setLastFourGames(updatedGames);
-    }
+    const slicedGames = games.slice(-4).reverse();
+    const emptySlots = 4 - slicedGames.length;
+    const updatedGames = [...slicedGames, ...Array(Math.max(emptySlots, 0)).fill({})];
+    setLastFourGames(updatedGames);
   }, [games]);
 
   return (
-    <Stack direction="row" spacing={1} justifyContent="right">
+    <Stack direction="row" spacing={0.7} justifyContent="right" paddingLeft='80px'>
       {lastFourGames.map((game, index) => {
         return <Formbox game={game} player={player} key={player + index} />;
       })}
