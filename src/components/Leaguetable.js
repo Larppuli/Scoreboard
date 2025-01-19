@@ -109,7 +109,7 @@ const Leaguetable = ({ games, scores }) => {
                   padding: '4px',
                   marginLeft: 0,
                   width: col === ('points') || col === ('winPercentage') ? '7%' : '5%',
-                  paddingInline: '5px',
+                  paddingInline: '12px',
                   marginRight: 0,
                   fontWeight: selectedColumn === col ? 'bold' : 400,
                   cursor: 'pointer',
