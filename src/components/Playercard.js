@@ -1,9 +1,9 @@
-import React from 'react';
-import NumAnimation from './NumAnimation';
+import React, { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { Line } from 'react-chartjs-2';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import {
     Chart as ChartJS,
     LineElement,
@@ -16,42 +16,29 @@ import {
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const Playercard = ({ name, games }) => {
-    const firstName = name.split(' ')[0];
-    const playerGames = games.filter((game) => game.participants.includes(firstName));
+const Playercard = ({ scoreDevelopments, games }) => {
+    const uniqueParticipants = [...new Set(games.flatMap(game => game.participants))];
 
-    const calculateMarketValueDevelopment = () => {
-        let marketValue = 10;
-        const marketValues = [];
+    const colorBlindFriendlyPalette = [
+        '#4a90e2',
+        '#f0f0f0',
+        '#50e3c2',
+        '#e94e77',
+    ];
+    const gameLabels = scoreDevelopments[0].scores.map((_, index) => `Game ${index + 1}`);
 
-        playerGames.forEach((game) => {
-            const weight = game.participants.length * 1.5;
-            const lossWeight = (marketValue * 0.1 / game.participants.length);
-
-            if (game.winner === firstName) {
-                marketValue += weight;
-            } else {
-                marketValue -= lossWeight;
-            }
-            marketValues.push(marketValue.toFixed(1));
-        });
-
-        return marketValues;
-    };
-
-    const marketValueDevelopment = calculateMarketValueDevelopment();
-
-    const chartLabels = playerGames.map((game) => game.date);
+    const datasets = scoreDevelopments.map((playerScore, index) => ({
+        label: playerScore.player,
+        data: playerScore.scores,
+        borderColor: colorBlindFriendlyPalette[index % colorBlindFriendlyPalette.length],
+        fill: false,
+        pointRadius: 0,
+        borderWidth: 2,
+    }));
 
     const chartData = {
-        labels: chartLabels,
-        datasets: [
-            {
-                data: marketValueDevelopment,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false,
-            },
-        ],
+        labels: gameLabels,
+        datasets: datasets,
     };
 
     const chartOptions = {
@@ -60,40 +47,40 @@ const Playercard = ({ name, games }) => {
         plugins: {
             legend: {
                 display: false,
+                position: 'top',
+                labels: {
+                    boxWidth: 10,
+                    padding: 20,
+                    font: {
+                        size: 14,
+                        family: 'Arial, sans-serif',
+                        weight: 'bold',
+                    },
+                    color: '#ffffff',
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                },
             },
             tooltip: {
                 callbacks: {
-                    title: (tooltipItems) => {
-                        const gameIndex = tooltipItems[0].dataIndex;
-                        const game = playerGames[gameIndex];
-                        return `Game ${gameIndex + 1}: ${game.date}`;
-                    },
-                    label: (tooltipItem) => {
-                        const marketValue = tooltipItem.raw;
-                        return `Market Value: €${marketValue}M`;
-                    },
-                    footer: (tooltipItems) => {
-                        const gameIndex = tooltipItems[0].dataIndex;
-                        const game = playerGames[gameIndex];
-                        return `Winner: ${game.winner}`;
-                    },
+                    label: (tooltipItem) => `Score: ${tooltipItem.raw}`,
                 },
-                displayColors: false,
+                displayColors: true,
             },
         },
         scales: {
             y: {
-                beginAtZero: true,
+                min: Math.min(...scoreDevelopments.map(player => Math.min(...player.scores))) - 0.5,
+                max: Math.max(...scoreDevelopments.map(player => Math.max(...player.scores))) + 5,
                 ticks: {
-                    callback: (value) => `€${value}M`,
-                },
-                grid: {
-                    display: true,
-                    color: 'rgba(100, 100, 100, 0.1)',
+                    stepSize: 1,
+                    callback: function(value) {
+                        return Math.round(value);
+                    },
                 },
             },
             x: {
-                display: false
+                display: false,
             },
         },
         animation: {
@@ -101,6 +88,25 @@ const Playercard = ({ name, games }) => {
             easing: 'easeInOutQuad',
         },
     };
+    
+
+    const [activeCharts, setActiveCharts] = useState(
+        uniqueParticipants.reduce((acc, player) => {
+            acc[player] = true;
+            return acc;
+        }, {})
+    );
+
+    const toggleChart = (player) => {
+        setActiveCharts(prevState => ({
+            ...prevState,
+            [player]: !prevState[player],
+        }));
+    };
+
+    const filteredDatasets = datasets.filter((_, index) =>
+        activeCharts[scoreDevelopments[index].player]
+    );
 
     return (
         <Paper
@@ -110,54 +116,37 @@ const Playercard = ({ name, games }) => {
                 padding: '10px',
                 marginTop: '10px',
                 maxWidth: '1000px',
-                position: 'relative',
             }}
             elevation={2}
             align="left"
         >
-            <div
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    transition: 'opacity 0.5s ease-out',
-                    zIndex: 10,
-                }}
-            ></div>
-
-            <Stack spacing={2}>
-                <Stack direction="row">
-                    <img
-                        src={`/images/${name.split(' ')[0]}.jpg`}
-                        alt="Player Thumbnail"
-                        style={{
-                            borderRadius: '6%',
-                            width: '60px',
-                            height: '60px',
-                        }}
-                    />
-                    <Stack paddingLeft={1} spacing={0.5}>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                            {name}
-                        </Typography>
-                        <Typography variant="body2">
-                            Current Market Value:{' '}
-                            <NumAnimation
-                                targetNumber={marketValueDevelopment[marketValueDevelopment.length - 1]}
-                                fixedNum={1}
-                                colorChange={true}
-                                fontWeight={'bold'}
-                            />{' '}
-                            M€
-                        </Typography>
-                    </Stack>
+            <Stack spacing={2} sx={{alignItems: 'center'}}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                    Point Development
+                </Typography>
+                <Stack direction="row" spacing={'1%'}>
+                    {uniqueParticipants.map((player, index) => (
+                       <FormControlLabel
+                       key={player}
+                       control={
+                           <Checkbox
+                               checked={activeCharts[player]}
+                               onChange={() => toggleChart(player)}
+                               sx={{
+                                   color: colorBlindFriendlyPalette[index % colorBlindFriendlyPalette.length],
+                                   '&.Mui-checked': {
+                                       color: colorBlindFriendlyPalette[index % colorBlindFriendlyPalette.length],
+                                   },
+                               }}
+                           />
+                       }
+                       label={player}
+                   />
+                   
+                    ))}
                 </Stack>
-                <div style={{ height: '150px', width: '100%' }}>
-                    <Line data={chartData} options={chartOptions} />
+                <div style={{ height: '400px', width: '100%' }}>
+                    <Line data={{ ...chartData, datasets: filteredDatasets }} options={chartOptions} />
                 </div>
             </Stack>
         </Paper>
