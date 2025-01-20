@@ -70,8 +70,8 @@ const Playercard = ({ scoreDevelopments, games }) => {
         },
         scales: {
             y: {
-                min: Math.min(...scoreDevelopments.map(player => Math.min(...player.scores))) - 0.5,
-                max: Math.max(...scoreDevelopments.map(player => Math.max(...player.scores))) + 5,
+                min: -0.5,
+                max: Math.max(...scoreDevelopments.map(player => Math.max(...player.scores))),
                 ticks: {
                     stepSize: 1,
                     callback: function(value) {
