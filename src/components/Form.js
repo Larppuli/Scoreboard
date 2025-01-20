@@ -13,7 +13,7 @@ const Form = ({ games, player }) => {
   }, [games]);
 
   return (
-    <Stack direction="row" spacing={0.7} justifyContent="right" paddingLeft='80px'>
+    <Stack direction="row" spacing={0.7} justifyContent="right">
       {lastFourGames.map((game, index) => {
         return <Formbox game={game} player={player} key={player + index} />;
       })}
