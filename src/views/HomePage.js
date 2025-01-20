@@ -73,8 +73,9 @@ const HomePage = ({ data }) => {
             key={player}
             sx={{
               flex: '1 1 calc(33.33% - 16px)',
-              display: 'flex',
               justifyContent: 'center',
+              marginTop: '-30px',
+              marginBottom: '-15px'
             }}
           >
             <SkillRadar games={data} player={player} />
