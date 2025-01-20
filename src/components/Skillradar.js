@@ -29,7 +29,7 @@ const SkillRadar = ({ player, games }) => {
     const winPercentage = gamesPlayed > 0 ? (gamesWon / gamesPlayed) * 100 : 0;
 
     const sports = Array.from(
-      new Set(playerGames.map((game) => game.sport))
+      new Set(games.map((game) => game.sport))
     );
 
     const statsBySport = sports.map((sport) => {
@@ -115,7 +115,7 @@ const SkillRadar = ({ player, games }) => {
         padding: '10px',
         marginTop: '10px',
         width: '95%',
-        height: '400px',
+        height: '87%',
       }}
       elevation={2}
       align="center"
@@ -130,7 +130,7 @@ const SkillRadar = ({ player, games }) => {
             height: '60px',
           }}
         />
-        <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '20px' }} color="white">
+        <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '18px' }} color="white">
           {player}'s Skill Radar
         </Typography>
       </Stack>
