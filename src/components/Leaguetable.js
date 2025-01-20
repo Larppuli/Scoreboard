@@ -117,12 +117,7 @@ const Leaguetable = ({ games, scores }) => {
               </TableCell>
             ))}
             <TableCell   sx={{
-                width: {
-                  xs: '15%',
-                  sm: '20%',
-                  md: '15%',
-                  lg: '10%',
-                },
+                width:'22%',
                 color: 'white',
                 padding: 0,
                 paddingRight: '32px',
