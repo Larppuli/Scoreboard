@@ -77,6 +77,16 @@ const Playercard = ({ scoreDevelopments, games }) => {
                     callback: function(value) {
                         return Math.round(value);
                     },
+                    color: '#ffffff',
+                    font: {
+                        size: 12,
+                    },
+                },
+                grid: {
+                    color: '#555555',
+                },
+                border: {
+                    width: 0,
                 },
             },
             x: {
@@ -88,6 +98,7 @@ const Playercard = ({ scoreDevelopments, games }) => {
             easing: 'easeInOutQuad',
         },
     };
+    
     
 
     const [activeCharts, setActiveCharts] = useState(
@@ -121,7 +132,7 @@ const Playercard = ({ scoreDevelopments, games }) => {
             align="left"
         >
             <Stack spacing={2} sx={{alignItems: 'center'}}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+            <Typography sx={{ fontFamily: '"Audiowide", sans-serif', paddingLeft: '10px', fontSize: '20px' }} color='white'>
                     Point Development
                 </Typography>
                 <Stack direction="row" spacing={'1%'}>
