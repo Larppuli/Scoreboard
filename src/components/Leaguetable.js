@@ -67,7 +67,7 @@ const Leaguetable = ({ games, scores }) => {
       <Table sx={{ background: '#080c0c', border: '3px solid #080c0c', tableLayout: 'fixed' }}>
         <TableHead>
           <TableRow>
-            <TableCell sx={{ paddingLeft: '1px', paddingBottom: '4px', paddingTop: '1px', fontSize: '10px', width: '22%' }}>
+            <TableCell sx={{ padding: 0, fontSize: '10px', width: '22%' }}>
               <FormControl
                 sx={{
                   width: 90,
@@ -76,11 +76,8 @@ const Leaguetable = ({ games, scores }) => {
                   '& .MuiInputBase-input': {
                     color: 'white',
                     fontSize: 9,
-                    whiteSpace: 'nowrap',
-                    overflow: 'visible',
-                    marginLeft: -1.2,
-                    marginBlock: -1,
                     textAlign: 'center',
+                    padding: 0,
                   },
                   '& .MuiOutlinedInput-root': {
                     border: '1px solid inherit',
@@ -106,11 +103,8 @@ const Leaguetable = ({ games, scores }) => {
                 key={col}
                 sx={{
                   color: 'white',
-                  padding: '4px',
-                  marginLeft: 0,
-                  width: col === ('points') || col === ('winPercentage') ? '7%' : '5%',
-                  paddingInline: '12px',
-                  marginRight: 0,
+                  padding: 0,
+                  width: col === 'points' || col === 'winPercentage' ? '9%' : '7%',
                   fontWeight: selectedColumn === col ? 'bold' : 400,
                   cursor: 'pointer',
                   background: selectedColumn === col ? '#202424' : 'inherit',
@@ -122,7 +116,18 @@ const Leaguetable = ({ games, scores }) => {
                 {['MP', 'W', 'L', 'W%', 'PTS'][index]}
               </TableCell>
             ))}
-            <TableCell sx={{ color: 'white', padding: '4px', paddingRight: '32px', fontSize: '15px' }} align="right">
+            <TableCell   sx={{
+                width: {
+                  xs: '15%',
+                  sm: '20%',
+                  md: '15%',
+                  lg: '10%',
+                },
+                color: 'white',
+                padding: 0,
+                paddingRight: '32px',
+                fontSize: '15px',
+              }} align="right">
               FORM
             </TableCell>
           </TableRow>
@@ -132,7 +137,7 @@ const Leaguetable = ({ games, scores }) => {
             const { playerGames, gamesPlayed, gamesWon, gamesLost, winPercentage, points } = calculateStats(player);
             return (
               <TableRow key={player} sx={{ height: '36px' }}>
-                <TableCell sx={{ color: 'white', padding: '4px', fontSize: '15px' }}>
+                <TableCell sx={{ color: 'white', padding: 0, paddingLeft: '4px', fontSize: '15px' }}>
                   <Stack direction="row">
                     <PositionBox position={index + 1} />
                     {player}
@@ -141,19 +146,19 @@ const Leaguetable = ({ games, scores }) => {
                 <TableCell sx={{ color: 'white', padding: '4px', background: selectedColumn === 'gamesPlayed' ? '#202424' : 'inherit', fontSize: '15px' }} align="center">
                   <NumAnimation targetNumber={gamesPlayed} fixedNum={0} />
                 </TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px', background: selectedColumn === 'gamesWon' ? '#202424' : 'inherit', fontSize: '15px' }} align="center">
+                <TableCell sx={{ width: '8%',color: 'white', padding: 0, background: selectedColumn === 'gamesWon' ? '#202424' : 'inherit', fontSize: '15px' }} align="center">
                   <NumAnimation targetNumber={gamesWon} fixedNum={0} />
                 </TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px', background: selectedColumn === 'gamesLost' ? '#202424' : 'inherit', fontSize: '15px' }} align="center">
+                <TableCell sx={{ width: '8%',color: 'white', padding: 0, background: selectedColumn === 'gamesLost' ? '#202424' : 'inherit', fontSize: '15px' }} align="center">
                   <NumAnimation targetNumber={gamesLost} fixedNum={0} />
                 </TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px', background: selectedColumn === 'winPercentage' ? '#202424' : 'inherit', fontSize: '15px' }} align="center">
+                <TableCell sx={{ width: '8%',color: 'white', padding: 0, background: selectedColumn === 'winPercentage' ? '#202424' : 'inherit', fontSize: '15px' }} align="center">
                   <NumAnimation targetNumber={winPercentage} fixedNum={1} />
                 </TableCell>
-                <TableCell sx={{ color: 'white', padding: '4px', background: selectedColumn === 'points' ? '#202424' : 'inherit', fontSize: '15px' }} align="center">
-                <NumAnimation targetNumber={points} fixedNum={0}/>
+                <TableCell sx={{ width: '8%',color: 'white', padding: 0, background: selectedColumn === 'points' ? '#202424' : 'inherit', fontSize: '15px' }} align="center">
+                  <NumAnimation targetNumber={points} fixedNum={0} />
                 </TableCell>
-                <TableCell sx={{ padding: '4px', fontSize: '10px' }}>
+                <TableCell sx={{ width: '8%',padding: 0, paddingRight: '4px', fontSize: '10px' }}>
                   <Form games={playerGames} player={player} />
                 </TableCell>
               </TableRow>
