@@ -34,7 +34,7 @@ const WinBarchart = ({ games, player }) => {
     const filteredGames = games.filter(
       (game) => game.participants.length === count && game.winner === player
     );
-    const totalGames = games.filter((game) => game.participants.length === count).length;
+    const totalGames = games.filter((game) => game.participants.length === count && game.participants.includes(player)).length;
     return totalGames > 0 ? (filteredGames.length / totalGames) * 100 : 0;
   });
 
