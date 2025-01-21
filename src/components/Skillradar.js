@@ -124,7 +124,7 @@ const SkillRadar = ({ player, games }) => {
                 }}>
             Skill Radar
         </Typography>
-        <div style={{ marginLeft: '20px' }}>
+        <div>
             <Radar data={data} options={options} />
         </div>
     </Paper>
