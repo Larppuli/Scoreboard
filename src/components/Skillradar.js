@@ -9,7 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
-import { Paper, Stack, Typography } from '@mui/material';
+import { Typography, Paper } from '@mui/material';
 
 ChartJS.register(
   RadialLinearScale,
@@ -49,22 +49,23 @@ const SkillRadar = ({ player, games }) => {
 
   const calculatePlayerSkills = () => {
     const { statsBySport } = calculateStats(player);
-
+  
     const skillData = {};
     statsBySport.forEach(({ sport, winPercentage, wins }) => {
-      const winPercentageSkill =
-        winPercentage > 0 ? (Math.log(1 + winPercentage) / Math.log(2.5)) * 20 : 0;
-
-      const winAmountSkill = (wins / 10) * 30;
-
-      const totalSkill = winPercentageSkill * 0.7 + winAmountSkill * 0.3;
-
+      const winPercentageSkill = winPercentage > 0 
+        ? 100 * (1 - Math.exp(-winPercentage * 5)) 
+        : 0;
+  
+      const winAmountSkill = 100 * (1 - Math.exp(-wins / 15));
+  
+      const totalSkill = winPercentageSkill * 0.3 + winAmountSkill * 0.7;
+  
       skillData[sport] = Math.min(totalSkill, 100);
     });
-
+  
     return skillData;
   };
-
+  
   const playerSkillsData = calculatePlayerSkills();
   const labels = Object.keys(playerSkillsData);
   const playerSkills = Object.values(playerSkillsData);
@@ -90,7 +91,7 @@ const SkillRadar = ({ player, games }) => {
         ticks: {
           stepSize: 20,
           color: '#818181',
-          backdropColor: '#080c0c',
+          backdropColor: '#171f1f',
         },
         grid: {
           color: '#818181',
@@ -108,33 +109,24 @@ const SkillRadar = ({ player, games }) => {
   };
 
   return (
-    <Paper
-      sx={{
-        background: '#080c0c',
-        color: 'black',
-        padding: '10px',
-        marginTop: '10px',
-        width: '95%',
-        height: '87%',
-      }}
-      elevation={2}
-      align="center"
-    >
-      <Stack direction="row" alignItems="center" spacing={3} sx={{ marginBottom: '-20px' }}>
-        <img
-          src={`/images/${player}.jpg`}
-          alt="Player Thumbnail"
-          style={{
-            borderRadius: '6%',
-            width: '60px',
-            height: '60px',
-          }}
-        />
-        <Typography sx={{ fontFamily: '"Audiowide", sans-serif', fontSize: '18px' }} color="white">
-          {player}'s Skill Radar
+    <Paper sx={{ maxWidth: '600px', marginTop: '10px', background: '#171f1f', paddingTop: '20px' }}>
+        <Typography 
+            sx={{
+                color: 'White',
+                fontWeight: 'bold',
+                alignSelf: 'center',
+                fontSize: {
+                    xs: '80%',
+                    sm: '90%',
+                    md: '100%',
+                    lg: '120%',
+                  },
+                }}>
+            Skill Radar
         </Typography>
-      </Stack>
-      <Radar data={data} options={options} />
+        <div style={{ marginLeft: '20px' }}>
+            <Radar data={data} options={options} />
+        </div>
     </Paper>
   );
 };
