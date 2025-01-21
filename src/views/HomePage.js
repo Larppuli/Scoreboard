@@ -2,7 +2,7 @@ import React from 'react';
 import Leaguetable from '../components/Leaguetable';
 import { Typography, Stack, Box } from '@mui/material';
 import Playercard from '../components/Playercard';
-import SkillRadar from '../components/Skillradar';
+import Playercharts from '../components/Playercharts';
 
 const HomePage = ({ data }) => {
   const calculateScoreDevelopments = (games) => {
@@ -59,29 +59,9 @@ const HomePage = ({ data }) => {
         }))}
       />
       <Playercard scoreDevelopments={scoreObjects} games={data} />
-      <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: 2,
-          justifyContent: 'center',
-          marginTop: 4,
-        }}
-      >
-        {uniqueParticipants.map((player) => (
-          <Box
-            key={player}
-            sx={{
-              flex: '1 1 calc(33.33% - 16px)',
-              justifyContent: 'center',
-              marginTop: '-30px',
-              marginBottom: '-15px'
-            }}
-          >
-            <SkillRadar games={data} player={player} />
-          </Box>
-        ))}
-      </Box>
+      {uniqueParticipants.map((player) => (
+        <Playercharts key={player} games={data} player={player} />
+      ))}
     </Box>
   );
 };
